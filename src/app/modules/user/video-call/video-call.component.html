@@ -1,0 +1,22 @@
+<div class="bg-gray-900 flex items-center justify-center h-screen">
+    <div class="relative w-full max-w-screen-lg h-screen bg-gray-800 rounded-lg overflow-hidden">
+        <!-- Video Feed -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <video class="w-full h-full object-cover" autoplay playsinline muted></video>
+        </div>
+
+        <!-- Overlay for controls -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 bg-opacity-60 flex justify-center space-x-4">
+            <button class="bg-red-500 text-white px-4 py-2 rounded-full flex items-center">
+               <mat-icon>call_end</mat-icon>
+            </button>
+            <button class="bg-green-500 text-white px-4 py-2 rounded-full flex items-center">
+                <mat-icon></mat-icon>
+
+            </button>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-full flex items-center">
+               <mat-icon>end</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

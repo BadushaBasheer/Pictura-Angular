@@ -1,0 +1,19 @@
+<div class="p-3">
+    <mat-grid-list class="mb-10" cols="3" rowHeight="3:3" gutterSize="8px" *ngIf="posts.length > 0; else noPostsTemplate">
+        <mat-grid-tile *ngFor="let post of posts" class="bg-gray-200 border-2 border-gray-700 hover:cursor-pointer transform transition-transform duration-300 hover:scale-110">
+            <img [src]="post.image.url" alt="User uploaded image" class="user-image">
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- No posts template -->
+    <ng-template #noPostsTemplate>
+        <div class="flex items-center justify-center h-screen">
+            <div class="text-center">
+                <div class="flex items-center justify-center w-24 h-24 border-2 border-gray-400 rounded-full">
+                    <span class="material-icons text-5xl text-gray-400">camera_alt</span>
+                </div>
+                <h4 class="text-gray-400 mt-2">No posts yet</h4>
+            </div>
+        </div>
+    </ng-template>
+</div>

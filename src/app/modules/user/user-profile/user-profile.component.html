@@ -1,0 +1,42 @@
+<div class="bg-neutral-700 h-44 relative">
+    <div class="absolute -bottom-16 left-4">
+        <Avatar [isLarge]="true" [hasBorder]="true"/>
+        <a href="#">
+<!--            <img [src]="profileImage" alt="User Posts" class="w-full h-fit"/>-->
+        </a>
+    </div>
+</div>
+<!-- Bio -->
+<div class="border-b-[1px] border-neutral-800 pb-4">
+    <div class="flex justify-end p-2">
+        <app-button (click)="edit()"
+                    label="Edit Profile" [secondary]="true">
+        </app-button>
+    </div>
+    <div class="mt-8 px-4">
+        <div class="flex flex-col">
+            <p class="text-white text-2xl font-semibold">
+                {{ userName }}
+            </p>
+            <p class="text-md text-neutral-500">
+                {{ email }}
+            </p>
+        </div>
+        <div class="flex flex-col mt-4">
+            <p class="text-white">
+                Bio
+            </p>
+        </div>
+        <div class="flex flex-row items-center mt-4 gap-6">
+            <div class="flex flex-row item-center gap-1">
+                <p class="text-white">{{ followingCount }}</p>
+                <p class="text-neutral-500">Following</p>
+            </div>
+            <div class="flex flex-row items-center gap-1">
+                <p class="text-white">{{ followersCount }}</p>
+                <p class="text-neutral-500">Followers</p>
+            </div>
+        </div>
+    </div>
+</div>
+<user-post-listing/>

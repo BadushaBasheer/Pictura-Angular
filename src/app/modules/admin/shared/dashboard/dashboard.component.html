@@ -1,0 +1,51 @@
+<mat-toolbar style="background-color: transparent !important; margin-top: 15px;">
+    <span class="w-full text-white ml-5 font-bold font-sans text-3xl">Dashboard</span>
+</mat-toolbar>
+
+<mat-grid-list [cols]="isSmallScreen ? 1 : 12" [rowHeight]="isSmallScreen ? '3:2' : '2:4'" gutterSize="25px" class="mt-1 ml-5 mr-5">
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
+        <div class="h-full flex items-center justify-center">
+            <!-- Chart 1 -->
+            <div class="text-center text-white">Chart 1</div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
+        <div class="h-full flex items-center justify-center">
+            <!-- Chart 2 -->
+            <div class="text-center text-white">Chart 2</div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
+        <div class="h-full flex items-center justify-center">
+            <!-- Chart 3 -->
+            <div class="text-center text-white">Chart 3</div>
+        </div>
+    </mat-grid-tile>
+
+<!--    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 7" [rowspan]="isSmallScreen ? 1 : 2" class="bg-black rounded-lg">-->
+<!--        <div class="h-full flex items-center justify-center">-->
+<!--            &lt;!&ndash; Chart 4 &ndash;&gt;-->
+<!--            <div class="text-center text-white">Chart 4</div>-->
+<!--            <div class="lg:w-9/12 sm:w-1/12" #chartContainer></div>-->
+
+<!--        </div>-->
+<!--    </mat-grid-tile>-->
+
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 7" [rowspan]="isSmallScreen ? 1 : 2" class="bg-black rounded-lg">
+        <div class="h-full flex items-center justify-center">
+            <div class="flex">
+                <histogram/>
+            </div>
+        </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 5" [rowspan]="isSmallScreen ? 1 : 2" class="bg-black rounded-lg">
+        <div class="h-full flex flex-col items-center justify-center">
+            <h3 class="text-white text-lg font-bold mb-4">Daily Performance</h3>
+            <div class="flex">
+                <pie-chart class="w-48 h-48"/>
+            </div>
+        </div>
+    </mat-grid-tile>
+
+</mat-grid-list>
