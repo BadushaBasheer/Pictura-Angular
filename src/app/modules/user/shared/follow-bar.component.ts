@@ -12,23 +12,48 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     selector: 'app-follow-bar',
     template: `
         <div class="px-6 py-10 hidden lg:block xl:w-96">
-            <div class="bg-neutral-800 rounded-xl p-4">
-                <h2 class="text-blue-500 text-xl font-thin">People you may know.</h2>
-                <div class="flex flex-col gap-6 mt-5">
-                    <div class="flex justify-center align-middle" *ngIf="!users.length">
-                        <loader/>
+<!--            <div class="bg-neutral-800 rounded-xl p-4">-->
+<!--                <h2 class="text-blue-500 text-xl font-thin">People you may know.</h2>-->
+<!--                <div class="flex flex-col gap-6 mt-5">-->
+<!--                    <div class="flex justify-center align-middle" *ngIf="!users.length">-->
+<!--                        <loader/>-->
+<!--                    </div>-->
+<!--                    <ng-container *ngFor="let user of users">-->
+<!--                        <a routerLink="/user/{{ user.id }}">-->
+<!--                            <div class="flex flex-row gap-4 items-center">-->
+<!--                                &lt;!&ndash; Avatar &ndash;&gt;-->
+<!--                                <Avatar/>-->
+<!--                                <div class="flex flex-row items-center gap-36">-->
+<!--                                    <p class="text-white font-semibold text-sm pt-2">-->
+<!--                                        {{ user.name }}-->
+<!--                                    </p>-->
+<!--                                    <button mat-icon-button>-->
+<!--                                        <mat-icon color="primary" matTooltip="follow">person_add</mat-icon>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </ng-container>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div class="bg-gray-900 rounded-lg shadow-lg p-6">
+                <h2 class="text-blue-400 text-2xl font-medium mb-4">People You May Know</h2>
+                <div class="flex flex-col gap-4">
+                    <div class="flex justify-center items-center" *ngIf="!users.length">
+                        <loader class="w-12 h-12 text-blue-400 animate-spin" />
                     </div>
                     <ng-container *ngFor="let user of users">
-                        <a routerLink="/user/{{ user.id }}">
-                            <div class="flex flex-row gap-4 items-center">
+                        <a routerLink="/user/{{ user.id }}" class="hover:bg-gray-800 rounded-lg transition duration-200 ease-in-out">
+                            <div class="flex items-center gap-4 p-4 hover:bg-gray-700 rounded-lg">
                                 <!-- Avatar -->
-                                <Avatar/>
-                                <div class="flex flex-row items-center gap-36">
-                                    <p class="text-white font-semibold text-sm pt-2">
+                                <Avatar class="w-13 h-13 rounded-full border-2 border-blue-500" />
+                                <div class="flex flex-1 justify-between items-center">
+                                    <p class="text-white font-mono text-lg">
                                         {{ user.name }}
                                     </p>
-                                    <button mat-icon-button>
-                                        <mat-icon color="primary" matTooltip="follow">person_add</mat-icon>
+                                    <button matTooltip="Follow" mat-icon-button class="text-blue-500 hover:bg-blue-600 rounded-full p-2 transition duration-150 ease-in-out">
+                                        <mat-icon class="text-white">person_add</mat-icon>
                                     </button>
                                 </div>
                             </div>
@@ -36,6 +61,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
                     </ng-container>
                 </div>
             </div>
+
             <!--post button-->
             <div class="mt-auto">
                 <div

@@ -1,439 +1,43 @@
-<!--<div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg text-center relative">-->
-<!--    <mat-dialog-actions>-->
-<!--        <button mat-icon-button color="warn" (click)="onClose()"-->
-<!--                class="flex items-center justify-end rounded-full transition duration-300 hover:bg-white hover:bg-opacity-10">-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-<!--    </mat-dialog-actions>-->
-<!--    <h2 mat-dialog-title style="color: white">Create New Posts</h2>-->
-<!--    <div class="mt-2 border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--        <div class="material-icons mx-auto mb-4">-->
-<!--            <mat-icon>perm_media</mat-icon>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--        <p *ngIf="!imagePreviewUrl && !imageChangedEvent" class="text-gray-500">Drag photos and videos here</p>-->
-<!--        &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--        <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--            <img [src]="croppedImage" alt="Selected Image" class="max-w-52 max-h-52">-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Image Cropper &ndash;&gt;-->
-<!--        <div *ngIf="imageChangedEvent && !croppedImage">-->
-<!--            <image-cropper-->
-<!--                [imageChangedEvent]="imageChangedEvent"-->
-<!--                [maintainAspectRatio]="true"-->
-<!--                [aspectRatio]="4 / 3"-->
-<!--                format="png"-->
-<!--                (imageCropped)="imageCropped($event)"-->
-<!--                (imageLoaded)="imageLoaded($event)"-->
-<!--                (cropperReady)="cropperReady()"-->
-<!--                (loadImageFailed)="loadImageFailed()"-->
-<!--            ></image-cropper>-->
-<!--            &lt;!&ndash; Crop Button &ndash;&gt;-->
-<!--            <button mat-raised-button color="primary" (click)="confirmCrop()" class="mt-4">-->
-<!--                Crop-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .svg">-->
-<!--    <button mat-raised-button color="primary" class="bg-blue-500 text-white font-bold py-2 px-4 rounded"-->
-<!--            (click)="openFilePicker()">-->
-<!--        Select-->
-<!--    </button>-->
-<!--</div>-->
-
-<!--<div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg relative">-->
-<!--    <button-->
-<!--        mat-icon-button-->
-<!--        color="warn"-->
-<!--        (click)="onClose()"-->
-<!--        class="flex justify-start rounded-full transition duration-300 hover:bg-white hover:bg-opacity-10">-->
-<!--        <mat-icon>close</mat-icon>-->
-<!--    </button>-->
-<!--    <div class="text-center">-->
-<!--        <h2 mat-dialog-title style="color: white">Create New Post</h2>-->
-<!--        <div class="border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--            <div class="flex justify-center items-center">-->
-<!--                &lt;!&ndash; Image Selection &ndash;&gt;-->
-<!--                <div class="w-1/2 h-1/5 flex flex-col items-center">-->
-<!--                    &lt;!&ndash; Conditionally show the icon &ndash;&gt;-->
-<!--                    <div *ngIf="!imagePreviewUrl && !imageChangedEvent" class="material-icons mx-auto mb-4">-->
-<!--                        <mat-icon>perm_media</mat-icon>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--                    <p *ngIf="!imagePreviewUrl && !imageChangedEvent" class="text-gray-500">-->
-<!--                        Select photos and videos here-->
-<!--                    </p>-->
-<!--                    &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--                    <div *ngIf="imagePreviewUrl" class="flex justify-center items-center">-->
-<!--                        <img [src]="imagePreviewUrl" alt="Selected Image" class="max-w-52 max-h-52" />-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
-<!--                &lt;!&ndash; Image Cropper &ndash;&gt;-->
-<!--                <div class="w-1/2 flex flex-col items-center">-->
-<!--                    <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--                        <img [src]="croppedImage" alt="Cropped Image" class="max-w-52 max-h-52" />-->
-<!--                    </div>-->
-<!--                    <div *ngIf="imageChangedEvent && !croppedImage">-->
-<!--                        <image-cropper-->
-<!--                            [imageChangedEvent]="imageChangedEvent"-->
-<!--                            [maintainAspectRatio]="true"-->
-<!--                            [aspectRatio]="4 / 4"-->
-<!--                            format="png"-->
-<!--                            (imageCropped)="imageCropped($event)"-->
-<!--                            (imageLoaded)="imageLoaded($event)"-->
-<!--                            (cropperReady)="cropperReady()"-->
-<!--                            (loadImageFailed)="loadImageFailed()"-->
-<!--                        ></image-cropper>-->
-<!--                        &lt;!&ndash; Crop Button &ndash;&gt;-->
-<!--                        <button mat-raised-button color="primary" (click)="confirmCrop()" class="mt-4">-->
-<!--                            Crop-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <input-->
-<!--        type="file"-->
-<!--        id="fileInput"-->
-<!--        class="hidden"-->
-<!--        (change)="onFileSelected($event)"-->
-<!--        accept=".jpg, .jpeg, .svg"-->
-<!--    />-->
-<!--    <button-->
-<!--        mat-raised-button-->
-<!--        color="primary"-->
-<!--        class="bg-blue-500 text-white font-bold py-2 px-4 rounded"-->
-<!--        (click)="openFilePicker()"-->
-<!--    >-->
-<!--        Select-->
-<!--    </button>-->
-<!--</div>-->
-
-
-<!-- add-post.component.html -->
-<!-- add-post.component.html -->
-<!--<div>-->
-<!--    <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden />-->
-<!--    <button (click)="openFilePicker()">Choose Image</button>-->
-<!--    <div *ngIf="imagePreviewUrl">-->
-<!--        <img [src]="imagePreviewUrl" alt="Image Preview" />-->
-<!--        <image-cropper-->
-<!--            [imageChangedEvent]="imageChangedEvent"-->
-<!--            [maintainAspectRatio]="true"-->
-<!--            [aspectRatio]="4 / 3"-->
-<!--            (imageCropped)="imageCropped($event)"-->
-<!--            (imageLoaded)="imageLoaded($event)"-->
-<!--            (loadImageFailed)="loadImageFailed()">-->
-<!--        </image-cropper>-->
-<!--        <button mat-raised-button (click)="confirmCrop()">Confirm Crop</button>-->
-<!--        <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped Image" />-->
-<!--    </div>-->
-<!--    <textarea [(ngModel)]="postContent" placeholder="Enter post content"></textarea>-->
-<!--    <button mat-raised-button (click)="createPost()">Create Post</button>-->
-<!--    <button mat-raised-button (click)="onClose()">Close</button>-->
-<!--</div>-->
-
-
-<!--<div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg text-center relative">-->
-<!--    <mat-dialog-actions>-->
-<!--        <button mat-icon-button color="warn"-->
-<!--                class="flex items-center justify-end rounded-full transition duration-300 hover:bg-white hover:bg-opacity-10">-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-<!--    </mat-dialog-actions>-->
-<!--    <h2 mat-dialog-title style="color: white">Create New Post</h2>-->
-<!--    <div class="border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--        <div class="flex justify-center items-center">-->
-<!--            &lt;!&ndash; Image Selection &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div class="material-icons mx-auto mb-4">-->
-<!--                    <mat-icon>perm_media</mat-icon>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--                <p *ngIf="!imageChangedEvent" class="text-gray-500">Drag photos and videos here</p>-->
-<!--                &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--                <div *ngIf="imageChangedEvent" class="flex justify-center items-center">-->
-<!--                    <img [src]="imageChangedEvent" alt="Selected Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Image Cropper &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--                    <img [src]="croppedImage" alt="Cropped Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--                <div *ngIf="imageChangedEvent && !croppedImage">-->
-<!--                    <image-cropper-->
-<!--                        [imageChangedEvent]="imageChangedEvent"-->
-<!--                        [maintainAspectRatio]="true"-->
-<!--                        [aspectRatio]="4 / 3"-->
-<!--                        format="png"-->
-<!--                        (imageCropped)="imageCropped($event)"-->
-<!--                        (imageLoaded)="imageLoaded()"-->
-<!--                        (cropperReady)="cropperReady()"-->
-<!--                        (loadImageFailed)="loadImageFailed()"-->
-<!--                    ></image-cropper>-->
-<!--                    &lt;!&ndash; Crop Button &ndash;&gt;-->
-<!--                    <button mat-raised-button color="primary"  class="mt-4">-->
-<!--                        Crop-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <input type="file" id="fileInput" class="hidden" accept=".jpg, .jpeg, .svg">-->
-<!--    <button mat-raised-button color="primary" class="bg-blue-500 text-white font-bold py-2 px-4 rounded"-->
-<!--           >-->
-<!--        Select-->
-<!--    </button>-->
-<!--    &lt;!&ndash; Post Form &ndash;&gt;-->
-<!--    <form >-->
-<!--        <mat-form-field appearance="fill" class="w-full mt-4">-->
-<!--            <mat-label>Post Content</mat-label>-->
-<!--            <textarea matInput name="content" required></textarea>-->
-<!--        </mat-form-field>-->
-<!--        <button mat-raised-button color="primary" class="mt-4" type="submit">Create Post</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-
-<!--<div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg text-center relative">-->
-<!--    <mat-dialog-actions>-->
-<!--        <button mat-icon-button color="warn" (click)="onClose()"-->
-<!--                class="flex items-center justify-end rounded-full transition duration-300 hover:bg-white hover:bg-opacity-10">-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-<!--    </mat-dialog-actions>-->
-<!--    <h2 mat-dialog-title style="color: white">Create New Post</h2>-->
-<!--    <div class="border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--        <div class="flex justify-center items-center">-->
-<!--            &lt;!&ndash; Image Selection &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div class="material-icons mx-auto mb-4">-->
-<!--                    <mat-icon>perm_media</mat-icon>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--                <p *ngIf="!imagePreviewUrl && !imageChangedEvent" class="text-gray-500">Drag photos and videos here</p>-->
-<!--                &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--                <div *ngIf="imagePreviewUrl" class="flex justify-center items-center">-->
-<!--                    <img [src]="imagePreviewUrl" alt="Selected Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Image Cropper &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--                    <img [src]="croppedImage" alt="Cropped Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--                <div *ngIf="imageChangedEvent && !croppedImage">-->
-<!--                    <image-cropper-->
-<!--                        [imageChangedEvent]="imageChangedEvent"-->
-<!--                        [maintainAspectRatio]="true"-->
-<!--                        [aspectRatio]="4 / 4"-->
-<!--                        format="png"-->
-<!--                        (imageCropped)="imageCropped($event)"-->
-<!--                        (imageLoaded)="imageLoaded($event)"-->
-<!--                        (cropperReady)="cropperReady()"-->
-<!--                        (loadImageFailed)="loadImageFailed()">-->
-<!--                    </image-cropper>-->
-<!--                    &lt;!&ndash; Crop Button &ndash;&gt;-->
-<!--                    <button mat-raised-button color="primary" (click)="confirmCrop()" class="mt-4">-->
-<!--                        Crop-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .svg">-->
-<!--    <button mat-raised-button color="primary" class="bg-blue-500 text-white font-bold py-2 px-4 rounded"-->
-<!--            (click)="openFilePicker()">-->
-<!--        Select-->
-<!--    </button>-->
-<!--    &lt;!&ndash; Post Form &ndash;&gt;-->
-<!--    <form (ngSubmit)="createPost()">-->
-<!--        <mat-form-field appearance="fill" class="w-full mt-4">-->
-<!--            <mat-label>Post Content</mat-label>-->
-<!--            <textarea matInput [(ngModel)]="postContent" name="content"></textarea>-->
-<!--        </mat-form-field>-->
-<!--        <button mat-raised-button color="primary" class="mt-4" type="submit">Create Post</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div class="bg-gray-900 text-white p-6 rounded-lg shadow-lg text-center relative">-->
-<!--    <mat-dialog-actions>-->
-<!--        <button mat-icon-button color="warn" (click)="onClose()"-->
-<!--                class="flex items-center justify-end rounded-full transition duration-300 hover:bg-white hover:bg-opacity-10">-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--        </button>-->
-<!--    </mat-dialog-actions>-->
-<!--    <h2 mat-dialog-title>Create New Post</h2>-->
-<!--    <div class="border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--        <div class="flex justify-center items-center">-->
-<!--            &lt;!&ndash; Image Selection &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div class="material-icons mx-auto mb-4">-->
-<!--                    <mat-icon>perm_media</mat-icon>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--                <p *ngIf="!imagePreviewUrl && !imageChangedEvent" class="text-gray-500">Drag photos and videos here</p>-->
-<!--                &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--                <div *ngIf="imagePreviewUrl" class="flex justify-center items-center">-->
-<!--                    <img [src]="imagePreviewUrl" alt="Selected Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Image Cropper &ndash;&gt;-->
-<!--            <div class="w-1/2 flex flex-col items-center">-->
-<!--                <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--                    <img [src]="croppedImage" alt="Cropped Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--                <div *ngIf="imageChangedEvent && !croppedImage">-->
-<!--                    <image-cropper-->
-<!--                        [imageChangedEvent]="imageChangedEvent"-->
-<!--                        [maintainAspectRatio]="true"-->
-<!--                        [aspectRatio]="4 / 4"-->
-<!--                        format="png"-->
-<!--                        (imageCropped)="imageCropped($event)"-->
-<!--                        (imageLoaded)="imageLoaded($event)"-->
-<!--                        (cropperReady)="cropperReady()"-->
-<!--                        (loadImageFailed)="loadImageFailed()">-->
-<!--                    </image-cropper>-->
-<!--                    &lt;!&ndash; Crop Button &ndash;&gt;-->
-<!--                    <button mat-raised-button color="primary" (click)="confirmCrop()" class="mt-4">-->
-<!--                        Crop-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <input type="file" id="fileInput" class="hidden" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png">-->
-<!--    <button mat-raised-button color="primary" class="bg-blue-500 text-white font-bold py-2 px-4 rounded"-->
-<!--            (click)="openFilePicker()">-->
-<!--        Select-->
-<!--    </button>-->
-<!--    &lt;!&ndash; Post Form &ndash;&gt;-->
-<!--    <form (ngSubmit)="createPost()">-->
-<!--        <mat-form-field appearance="fill" class="w-full mt-4">-->
-<!--            <mat-label>Post Content</mat-label>-->
-<!--            <textarea matInput [(ngModel)]="postContent" name="content"></textarea>-->
-<!--        </mat-form-field>-->
-<!--        <button mat-raised-button color="primary" class="mt-4" type="submit">Create Post</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!-- -----------------------------------WORKING CODE--------------------------------------------------- -->
-
-<!--<input type="file" (change)="fileChangeEvent($event)" />-->
-<!--<button class="bg-white text-white" (change)="fileChangeEvent($event)" >Upload</button>-->
-<!--<image-cropper-->
-<!--    [imageChangedEvent]="imageChangedEvent"-->
-<!--    [maintainAspectRatio]="true"-->
-<!--    [aspectRatio]="4 / 3"-->
-<!--    format="png"-->
-<!--    (imageCropped)="imageCropped($event)"-->
-<!--    (imageLoaded)="imageLoaded()"-->
-<!--    (cropperReady)="cropperReady()"-->
-<!--    (loadImageFailed)="loadImageFailed()"-->
-<!--&gt;</image-cropper>-->
-
-<!--&lt;!&ndash; Display the cropped image &ndash;&gt;-->
-<!--<img [src]="croppedImage" alt="Cropped Image" />-->
-
-<!--&lt;!&ndash; Input for post caption &ndash;&gt;-->
-<!--<input type="text" [(ngModel)]="caption" placeholder="Enter a caption" />-->
-
-<!--&lt;!&ndash; Button to upload the cropped image &ndash;&gt;-->
-<!--<button mat-raised-button (click)="uploadImage()">Upload Image</button>-->
-
-<!-- -----------------------------------WORKING CODE--------------------------------------------------- -->
-
-
-<!--<div class="bg-gray-800 text-white p-8 rounded-lg shadow-lg text-center relative">-->
-<!--    <div class="flex items-center justify-between">-->
-<!--        <h2 class="text-white font-semibold mb-6 flex-auto  text-center">Create New Post</h2>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <ng-container>-->
-<!--            <div class="mt-2 border border-gray-500 border-dashed rounded-lg p-10 mb-4">-->
-<!--                <div class="material-icons mx-auto mb-4">-->
-<!--                    <mat-icon>perm_media</mat-icon>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Conditionally show the paragraph &ndash;&gt;-->
-<!--                <p class="text-gray-500">Select an image to upload</p>-->
-<!--                &lt;!&ndash; Image Preview &ndash;&gt;-->
-<!--                <div *ngIf="croppedImage" class="flex justify-center items-center">-->
-<!--                    <img [src]="croppedImage" alt="Selected Image" class="max-w-52 max-h-52">-->
-<!--                </div>-->
-<!--                <input type="file" id="upload" hidden (change)="fileChangeEvent($event)" />-->
-<!--                <label for="upload" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 cursor-pointer">-->
-<!--                    Upload-->
-<!--                </label>-->
-<!--                <image-cropper-->
-<!--                    [imageChangedEvent]="imageChangedEvent"-->
-<!--                    [maintainAspectRatio]="true"-->
-<!--                    [aspectRatio]="4 / 4"-->
-<!--                    format="png"-->
-<!--                    (imageCropped)="imageCropped($event)"-->
-<!--                    (imageLoaded)="imageLoaded()"-->
-<!--                    (cropperReady)="cropperReady()"-->
-<!--                    (loadImageFailed)="loadImageFailed()">-->
-<!--                </image-cropper>-->
-
-<!--                &lt;!&ndash; Display the cropped image &ndash;&gt;-->
-<!--                <img [src]="croppedImage" alt="Cropped Image" />-->
-
-<!--                &lt;!&ndash; Input for post caption &ndash;&gt;-->
-<!--                <input type="text" [(ngModel)]="caption" placeholder="Enter a caption" />-->
-
-<!--                &lt;!&ndash; Button to upload the cropped image &ndash;&gt;-->
-<!--                <button mat-raised-button (click)="uploadImage()">Upload Image</button>-->
-<!--            </div>-->
-<!--        </ng-container>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
-
-<div class="bg-gray-900 text-white p-10 rounded-lg shadow-xl max-w-md mx-auto">
+<div class="bg-gray-900 text-white p-10 rounded-lg shadow-2xl max-w-lg mx-auto">
     <div class="text-center">
-        <h2 class="text-2xl font-bold mb-8">Create New Post</h2>
-        <hr>
+        <h2 class="text-3xl font-bold mb-6">Create New Post</h2>
+        <hr class="border-gray-700 mb-6">
     </div>
-    <div class="bg-gray-800 p-6 rounded-lg shadow-inner">
-        <div class="mt-4 border-4 border-dashed border-gray-600 rounded-lg p-8 mb-6 flex flex-col items-center justify-center">
-            <mat-icon class="text-gray-500 mb-4 text-6xl">perm_media</mat-icon>
-            <p class="text-gray-400" *ngIf="!croppedImage">Select an image to upload</p>
-
-            <!-- Image Preview -->
-            <div *ngIf="croppedImage" class="mt-4">
-                <img [src]="croppedImage" alt="Selected Image" class="rounded-lg shadow-lg max-w-52 max-h-52 object-cover">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-inner">
+        <!-- Image cropper and preview -->
+        <div class="flex gap-4">
+            <div class="w-1/2 bg-gray-700 p-4 rounded-lg shadow-md">
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="4 / 4"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()">
+                </image-cropper>
+            </div>
+            <div class="w-1/2 flex justify-center items-center">
+                <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped Image" class="rounded-lg shadow-lg"/>
             </div>
         </div>
-        <input type="file" id="upload" hidden (change)="fileChangeEvent($event)" />
-        <label for="upload" class="block text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mb-6 cursor-pointer transition ease-in-out duration-300">
-            Upload Image
-        </label>
-
-        <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="4 / 4"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (imageLoaded)="imageLoaded()"
-            (cropperReady)="cropperReady()"
-            (loadImageFailed)="loadImageFailed()">
-        </image-cropper>
-
-        <!-- Display the cropped image -->
-        <img [src]="croppedImage" alt="Cropped Image" class="mt-4 rounded-lg shadow-lg"/>
+        <!-- If no cropped image is available -->
+        <div *ngIf="!croppedImage" class="mt-4 border-4 border-dashed border-gray-700 rounded-lg p-8 mb-6 flex flex-col items-center justify-center">
+            <mat-icon class="text-gray-500 mb-4 text-7xl">perm_media</mat-icon>
+            <p class="text-gray-400 text-lg">Select an image to upload</p>
+        </div>
+        <!-- Upload button -->
+        <div *ngIf="!croppedImage">
+            <input type="file" id="upload" hidden (change)="fileChangeEvent($event)" />
+            <label for="upload" class="block text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mb-6 cursor-pointer transition ease-in-out duration-300">
+                Upload Image
+            </label>
+        </div>
 
         <!-- Input for post caption -->
         <input type="text" [(ngModel)]="caption" placeholder="Enter a caption"
-               class="w-full mt-4 px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
-
+               class="w-full mt-6 px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
         <!-- Button to upload the cropped image -->
         <button mat-raised-button (click)="uploadImage()"
                 class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition ease-in-out duration-300">
@@ -441,3 +45,4 @@
         </button>
     </div>
 </div>
+

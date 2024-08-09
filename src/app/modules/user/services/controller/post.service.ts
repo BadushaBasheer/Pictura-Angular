@@ -34,17 +34,6 @@ export class PostService {
         return this.http.put<Posts>(`${this.apiUrl}/like/${postId}/user/${userId}`, null);
     }
 
-    // createPost(postContent: any, file: File): Observable<Posts> {
-    //     const formData: FormData = new FormData();
-    //     formData.append('post', JSON.stringify({ content: postContent }));
-    //     formData.append('file', file);
-    //
-    //     const headers = new HttpHeaders();
-    //     headers.append('Content-Type', 'multipart/form-data');
-    //
-    //     return this.http.post<Posts>(`${this.apiUrl}/post`, formData, { headers });
-    // }
-
     createPost(file: File, caption: string): Observable<any> {
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
@@ -65,13 +54,6 @@ export class PostService {
             })
         );
     }
-
-    // return this.http.post<Posts>(`${this.apiUrl}/post`, formData);
-
-
-    // createPost(formData: FormData): Observable<any> {
-    //     return this.http.post<any>(this.apiUrl, formData);
-    // }
 
     deletePost(postId: number): Observable<ApiResponse> {
         return this.http.delete<ApiResponse>(`${this.apiUrl}/${postId}`);
