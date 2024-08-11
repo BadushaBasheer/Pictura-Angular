@@ -20,7 +20,9 @@ import {BehaviorSubject, Observable} from "rxjs";
                         <app-follow-bar class="sticky top-0 h-screen"/>
                     </div>
                     <div *ngIf="!(showFollowBar | async)">
-                        <user-chat class="sticky top-0 h-screen"/>
+<!--                        <user-chat class="sticky top-0 h-screen"/>-->
+                        <chat-room class="sticky top-0 h-screen"/>
+
                     </div>
                 </div>
             </div>
@@ -28,8 +30,6 @@ import {BehaviorSubject, Observable} from "rxjs";
     `,
 })
 export class HomeComponent implements OnInit {
-
-    title: string = '';
 
     private showFollowBarSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     showFollowBar: Observable<boolean> = this.showFollowBarSubject.asObservable();

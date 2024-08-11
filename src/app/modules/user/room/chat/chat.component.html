@@ -1,11 +1,11 @@
 <div class="container mt-5 w-[29rem] pl-5">
-    <div class="msg-header border border-gray-300 w-full h-16 bg-black rounded-t-xl flex items-center justify-between">
+    <div class="msg-header border border-gray-300 w-full h-16 bg-black rounded-t-xl flex items-center justify-between" >
         <div class="container w-64 flex items-center">
            <div class="ml-5">
                <Avatar/>
            </div>
-            <div class="active w-36 text-black font-bold ml-2 mt-3">
-                <p class="text-white">User name</p>
+            <div class="active w-36 text-black font-bold ml-2 mt-3" *ngIf="user">
+                <p class="text-white">{{ user.name }}</p>
             </div>
         </div>
         <a (click)="openVideoCall()" class="material-icons flex mr-7 mb-3 mt-2">
@@ -59,4 +59,3 @@
     </div>
 
 </div>
-
