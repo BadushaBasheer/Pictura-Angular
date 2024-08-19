@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, Observable, of} from 'rxjs';
 import {Users} from "../interface/Users";
+import {StorageService} from "../../../../auth/components/services/storage/storage.service";
 
 
 @Injectable({
@@ -17,9 +18,17 @@ export class UserService {
         return this.http.get<Users[]>(`${this.apiUrl}/allUsers`);
     }
 
+    getSuggestions(): Observable<Users[]> {
+        return this.http.get<Users[]>(`${this.apiUrl}/suggestion`);
+    }
+
     getUser(): Observable<Users> {
         return this.http.get<Users>(`${this.apiUrl}/`);
 
+    }
+
+    getMyDetails(): Observable<Users> {
+        return this.http.get<Users>(`${this.apiUrl}/me`);
     }
 
     getAuthenticatedUser(): Observable<Users> {
@@ -34,13 +43,48 @@ export class UserService {
         return this.http.get<Users[]>(`${this.apiUrl}/search`, { params: { query } });
     }
 
-    updateUser(userId: number, updatedUser: Users): Observable<Users> {
-        return this.http.put<Users>(`${this.apiUrl}/${userId}`, updatedUser);
+    updateUser(userData: FormData): Observable<Users> {
+        return this.http.post<Users>(`${this.apiUrl}/update`, userData);
     }
 
-    followUser(userId1: number, userId2: number): Observable<Users> {
-        return this.http.put<Users>(`${this.apiUrl}/follow/${userId1}/${userId2}`, null);
+    checkIfFollowed(userIdToCheck: number): Observable<boolean> {
+        console.log("Came here...", userIdToCheck)
+        return this.http.get<boolean>(`${this.apiUrl}/check-follow`, {
+            params: { userIdToCheck }
+        });
     }
+
+    followUser(userId: number): Observable<any> {
+        return this.http.put(`${this.apiUrl}/follow/${userId}`, {}).pipe(
+            catchError(error => {
+                console.error('Error following user', error);
+                throw error;
+            })
+        );
+    }
+    unfollowUser(userId: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/unfollow/${userId}`).pipe(
+            catchError(error => {
+                console.error('Error unfollowing user', error);
+                throw error;
+            })
+        );
+    }
+
+    getFollowedUsers(): Observable<Users[]> {
+        return this.http.get<Users[]>(`${this.apiUrl}/followers`)
+            .pipe(
+                catchError(this.handleError<Users[]>('getFollowedUsers', []))
+            );
+    }
+
+    getFollowingUsers(): Observable<Users[]> {
+        return this.http.get<Users[]>(`${this.apiUrl}/following`)
+            .pipe(
+                catchError(this.handleError<Users[]>('getFollowingUsers', []))
+            );
+    }
+
 
     blockUser(blockedId: number): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/block/${blockedId}`, null);
@@ -48,5 +92,14 @@ export class UserService {
 
     unblockUser(blockedId: number): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/unblock/${blockedId}`, null);
+    }
+
+
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(`${operation} failed: ${error.message}`);
+            return of(result as T);
+        };
     }
 }

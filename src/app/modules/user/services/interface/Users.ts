@@ -12,6 +12,7 @@ export interface Users {
     accountLocked: boolean;
     bio: string;
     profilePic: string;
+    backgroundImage: string;
     enabled: boolean;
     isBlockedByAdmin: boolean;
     isGoogleSignIn: boolean;
