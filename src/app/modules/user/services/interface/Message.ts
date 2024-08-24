@@ -1,8 +1,11 @@
+import {Users} from "./Users";
+
 export interface Message {
     id: number;
     content: string;
-    senderId: number;
-    chatId: number;
+    user: Users;
     timeStamp: string | Date;
-    isOutgoing: boolean;
+    chatId: number;
 }
+
+

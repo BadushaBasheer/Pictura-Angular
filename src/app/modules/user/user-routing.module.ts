@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./layout/home.component";
+import {HomeComponent} from "./home/home.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {NotificationComponent} from "./notification/notification.component";
 import {PostsComponent} from "./posts/posts.component";

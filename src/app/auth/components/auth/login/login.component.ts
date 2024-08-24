@@ -43,6 +43,12 @@ export class LoginComponent implements OnInit {
             email: [null, [Validators.email, Validators.required]],
             password: [null, [Validators.required]]
         });
+        this.loginForm.get('email')?.valueChanges.subscribe(value =>{
+            if (value) {
+                const lowerCaseEmail = value.toLowerCase();
+                this.loginForm.get('email')?.setValue(lowerCaseEmail, {emitEvent: false});
+            }
+        })
     }
 
     submitLoginForm(): void {
@@ -73,6 +79,10 @@ export class LoginComponent implements OnInit {
                     const token = res.token;
                     console.log('JWT Token:', token);
                     StorageService.saveToken(token);
+
+                    const refreshToken = res.refreshToken;
+                    console.log('JWT Refresh Token:', refreshToken);
+                    StorageService.saveToken(refreshToken);
 
                     if (StorageService.isAdminLoggedIn()) {
                         this.router.navigateByUrl('/admin');

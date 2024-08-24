@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Posts} from "../services/interface/Posts";
 import {PostService} from "../services/controller/post.service";
 import {StorageService} from "../../../auth/components/services/storage/storage.service";
@@ -11,11 +11,16 @@ export class PostsComponent implements OnInit {
 
     posts: Posts[] = [];
 
-    constructor(private postService: PostService) {
-    }
+    isBookmarked: boolean = false;
+
+    isLiked: boolean = false;
+
+    constructor(private postService: PostService, private cdr: ChangeDetectorRef) { }
+
 
     ngOnInit(): void {
         this.fetchPosts();
+        this.cdr.detectChanges();
     }
 
     fetchPosts(): void {
@@ -24,6 +29,9 @@ export class PostsComponent implements OnInit {
         });
     }
 
+    toggleBookmark() {
+        this.isBookmarked = !this.isBookmarked;
+    }
 
     likePost(postId: number): void {
         const userId = StorageService.getUserId();
@@ -33,6 +41,7 @@ export class PostsComponent implements OnInit {
                     const index = this.posts.findIndex(post => post.id === postId);
                     if (index !== -1) {
                         this.posts[index] = updatedPost;
+                        this.isLiked = this.isPostLikedByUser(userId);
                     }
                 },
                 error: (error) => {
@@ -43,6 +52,12 @@ export class PostsComponent implements OnInit {
             console.error('User is not logged in or user ID is not available');
         }
     }
+
+    isPostLikedByUser(post: Posts): boolean {
+        const userId = StorageService.getUserId();
+        return post.liked.includes(userId);
+    }
+
 
 
 }

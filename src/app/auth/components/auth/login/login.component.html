@@ -60,40 +60,101 @@
                 <p class="font-light text-3xl text-white">Welcome Back!</p>
                 <p class="text-red-500 text-2xl">Sign In</p>
             </div>
-            <form [formGroup]="loginForm" id="loginForm" class="flex flex-col">
-                <mat-form-field appearance="outline" color="primary">
-                    <input matInput placeholder="E-mail" formControlName="email" required />
+<!--            <form [formGroup]="loginForm" id="loginForm" class="flex flex-col">-->
+<!--                <mat-form-field appearance="outline" color="primary">-->
+<!--                    <input matInput placeholder="E-mail" formControlName="email" required />-->
+<!--                    <mat-icon matSuffix>email</mat-icon>-->
+<!--                    <mat-error *ngIf="this.loginForm.get('email')?.touched && this.loginForm.get('email')?.hasError('required')">-->
+<!--                        Email is required-->
+<!--                    </mat-error>-->
+<!--                    <mat-error *ngIf="this.loginForm.get('email')?.touched && this.loginForm.get('email')?.hasError('email')">-->
+<!--                        Email must be a valid Email-->
+<!--                    </mat-error>-->
+<!--                    &lt;!&ndash; Backend validation error for email &ndash;&gt;-->
+<!--                    <div *ngIf="errors.email" class="text-red-600">-->
+<!--                        {{ errors.email | json}}-->
+<!--                    </div>-->
+<!--                </mat-form-field>-->
+
+<!--                <mat-form-field appearance="outline">-->
+<!--                    <input [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" formControlName="password" required />-->
+<!--                    <mat-error *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">-->
+<!--                        Password is required-->
+<!--                    </mat-error>-->
+<!--                    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">-->
+<!--                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>-->
+<!--                    </button>-->
+<!--                    &lt;!&ndash; Backend validation error for password &ndash;&gt;-->
+<!--                    <div *ngIf="errors.password" class="text-red-600">-->
+<!--                        {{ errors.password | json}}-->
+<!--                    </div>-->
+<!--                </mat-form-field>-->
+
+<!--                <button mat-raised-button type="submit" class="mt-5 bg-black text-white border border-white py-2 rounded-full cursor-pointer w-full hover:bg-gray-300 hover:text-black" (click)="submitLoginForm()">-->
+<!--                    LOGIN-->
+<!--                </button>-->
+<!--            </form>-->
+            <form [formGroup]="loginForm" id="loginForm" class="flex flex-col space-y-4 p-6 bg-black rounded-lg shadow-lg">
+                <!-- Email Field -->
+                <mat-form-field appearance="outline" color="primary" class="w-full">
+                    <input
+                        matInput
+                        placeholder="E-mail"
+                        formControlName="email"
+                        required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    />
                     <mat-icon matSuffix>email</mat-icon>
                     <mat-error *ngIf="this.loginForm.get('email')?.touched && this.loginForm.get('email')?.hasError('required')">
-                        Email is required
+                        <span class="text-red-500 text-sm">Email is required</span>
                     </mat-error>
                     <mat-error *ngIf="this.loginForm.get('email')?.touched && this.loginForm.get('email')?.hasError('email')">
-                        Email must be a valid Email
+                        <span class="text-red-500 text-sm">Email must be a valid Email</span>
                     </mat-error>
                     <!-- Backend validation error for email -->
-                    <div *ngIf="errors.email" class="text-red-600">
-                        {{ errors.email | json}}
+                    <div *ngIf="errors.email" class="text-red-600 text-sm mt-1">
+                        {{ errors.email | json }}
                     </div>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <input [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" formControlName="password" required />
-                    <mat-error *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
-                        Password is required
-                    </mat-error>
-                    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                <!-- Password Field -->
+                <mat-form-field appearance="outline" class="w-full">
+                    <input
+                        [type]="hidePassword ? 'password' : 'text'"
+                        matInput
+                        placeholder="Password"
+                        formControlName="password"
+                        required
+                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    />
+                    <button
+                        mat-icon-button
+                        matSuffix
+                        (click)="togglePasswordVisibility()"
+                        class="text-gray-500 hover:text-gray-700 transition duration-200"
+                    >
                         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
+                    <mat-error *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')">
+                        <span class="text-red-500 text-sm">Password is required</span>
+                    </mat-error>
                     <!-- Backend validation error for password -->
-                    <div *ngIf="errors.password" class="text-red-600">
-                        {{ errors.password | json}}
+                    <div *ngIf="errors.password" class="text-red-600 text-sm mt-1">
+                        {{ errors.password | json }}
                     </div>
                 </mat-form-field>
 
-                <button mat-raised-button type="submit" class="mt-5 bg-black text-white border border-white py-2 rounded-full cursor-pointer w-full hover:bg-gray-300 hover:text-black" (click)="submitLoginForm()">
+                <!-- Submit Button -->
+                <button
+                    mat-raised-button
+                    type="submit"
+                    class="bg-blue-600 text-white py-2 rounded-full cursor-pointer w-full hover:bg-blue-700 transition duration-200"
+                    (click)="submitLoginForm()"
+                >
                     LOGIN
                 </button>
             </form>
+
             <div class="flex justify-between mt-3">
                 <button routerLink="/register" class="text-blue-700 no-underline text-sm hover:text-white">Not have an Account?</button>
                 <!-- <a class="text-blue-700 no-underline text-sm hover:text-white">Forgot Password</a> -->

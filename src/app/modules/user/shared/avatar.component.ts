@@ -19,6 +19,7 @@ export class AvatarComponent implements OnInit{
     @Input() isLarge: boolean = false;
     @Input() hasBorder: boolean = false;
     user: Observable<Users> | undefined;
+    @Input() src!: any;
 
     constructor(private userService: UserService) { }
 

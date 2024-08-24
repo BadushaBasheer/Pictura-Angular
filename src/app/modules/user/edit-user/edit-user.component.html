@@ -1,57 +1,320 @@
-<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4 border-2 rounded-xl">
-    <div
-        class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-black">
-        <div>
-            <h1 class="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
-                Profile
-            </h1>
+<!--<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4 border-2 rounded-xl">-->
+<!--    <div class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-black">-->
+<!--        <div>-->
+<!--            <h1 class="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">Profile</h1>-->
+<!--            <form>-->
+<!--                <div class="w-full rounded-sm bg-blue-900 bg-cover bg-center bg-no-repeat items-center">-->
+<!--                    &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--                    <div class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-green-700 bg-cover bg-center bg-no-repeat">-->
+<!--                        <div class="relative">-->
+<!--                            <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full rounded-full object-cover" alt="Profile Image">-->
+<!--                            <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>-->
+<!--                            <label for="upload_profile" class="absolute inset-0 flex items-center justify-center">-->
+<!--                                <mat-icon>camera_alt</mat-icon>-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="flex justify-end">-->
+<!--                        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>-->
+<!--                        <div class="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">-->
+<!--                            <label for="upload_cover" class="inline-flex items-center gap-1 cursor-pointer">-->
+<!--                                Cover <mat-icon>camera_alt</mat-icon>-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="relative mt-2">-->
+<!--                        <img *ngIf="user.backgroundImage" [src]="user.backgroundImage" class="w-full h-auto rounded-md object-cover" alt="Cover Image">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <h2 class="text-center mt-1 font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>-->
+<!--                <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">-->
+<!--                    <div class="w-full mb-4 mt-6">-->
+<!--                        <label for="username" class="mb-2 dark:text-gray-300">UserName</label>-->
+<!--                        <input type="text"-->
+<!--                               name="username"-->
+<!--                               class="mt-2 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"-->
+<!--                               id="username" [(ngModel)]="user.username" placeholder="User Name">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">-->
+<!--                    <div class="w-full">-->
+<!--                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bio</label>-->
+<!--                        <textarea id="message" name="bio" rows="3"-->
+<!--                                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"-->
+<!--                                  [(ngModel)]="user.bio" placeholder="Write your bio here..."></textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex justify-end items-end mt-5">-->
+<!--                    <button mat-raised-button (click)="onSubmit()">Save</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--ORIGNIAL-->
+<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-6 border-2 border-gray-200 rounded-xl shadow-lg bg-white dark:bg-gray-800">
+    <div class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-xl p-6 rounded-xl h-fit self-center dark:bg-gray-900">
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-extrabold mb-4 dark:text-white">Profile</h1>
             <form>
-                <div class="w-full rounded-sm bg-blue-900 bg-cover bg-center bg-no-repeat items-center">
+                <div class="relative flex flex-col items-center gap-4 bg-gray-100 p-4 rounded-xl dark:bg-gray-700">
                     <!-- Profile Image -->
-                    <div
-                        class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-green-700 bg-cover bg-center bg-no-repeat">
-                        <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
-                            <input type="file" name="profile" id="upload_profile" hidden required>
-                            <label for="upload_profile">
-                                <mat-icon>camera_alt</mat-icon>
-                            </label>
-                        </div>
+                    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">
+                        <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full object-cover" alt="Profile Image">
+                        <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>
+                        <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">
+                            <mat-icon class="text-white">camera_alt</mat-icon>
+                        </label>
                     </div>
-                    <div class="flex justify-end">
-                        <input type="file" name="profile" id="upload_cover" hidden required>
-                        <div
-                            class="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">
-                            <label for="upload_cover" class="inline-flex items-center gap-1 cursor-pointer">Cover
-                                <mat-icon>camera_alt</mat-icon>
-                            </label>
-                        </div>
-
-                    </div>
-                </div>
-                <h2 class="text-center mt-1 font-semibold dark:text-gray-300">Upload Profile and Cover Image
-                </h2>
-                <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                    <div class="w-full  mb-4 mt-6">
-                        <label for="username" class="mb-2 dark:text-gray-300">UserName</label>
-                        <input type="text"
-                               class="mt-2 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
-                               id="username" placeholder="User Name">
+                    <div class="relative w-full mt-4">
+                        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>
+                        <label for="upload_cover" class="flex items-center justify-center gap-2 cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700">
+                            <span>Cover</span>
+                            <mat-icon>camera_alt</mat-icon>
+                        </label>
+                        <img *ngIf="user.backgroundImage" [src]="user.backgroundImage" class="w-full mt-4 rounded-lg object-cover" alt="Cover Image">
                     </div>
                 </div>
 
-                <div class="flex lg:flex-row md:flex-col sm:flex-col xs:flex-col gap-2 justify-center w-full">
-                    <div class="w-full">
-                        <label for="message"
-                               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bio</label>
-                        <textarea id="message" rows="3"
-                                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <h2 class="text-center mt-6 text-lg font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>
+                <div class="mt-6 space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium dark:text-gray-300">User Name</label>
+                        <input type="text" name="username" id="username" [(ngModel)]="user.username"
+                               class="mt-2 w-full border-2 border-gray-300 rounded-lg p-2 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200 dark:focus:ring-blue-500"
+                               placeholder="User Name">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium dark:text-gray-300">Bio</label>
+                        <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"
+                                  class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"
                                   placeholder="Write your bio here..."></textarea>
                     </div>
                 </div>
-                <div class="flex justify-end items-end mt-5">
-                    <button mat-raised-button>Save</button>
+                <div class="flex justify-end mt-6">
+                    <button type="button" (click)="onSubmit()"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        Save
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+<!--<div-->
+<!--    class="w-full rounded-sm bg-cover bg-center bg-no-repeat items-center"-->
+<!--    [ngStyle]="{'background-image': user.backgroundImage ? 'url(' + user.backgroundImage + ')' : 'none'}">-->
+
+<!--    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">-->
+<!--            <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full rounded-full object-cover" alt="Profile Image">-->
+<!--            <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>-->
+<!--            <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">-->
+<!--                <mat-icon class="text-white">camera_alt</mat-icon>-->
+<!--            </label>-->
+<!--    </div>-->
+
+<!--    <div class="flex justify-end">-->
+<!--        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>-->
+<!--        <div class="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">-->
+<!--            <label for="upload_cover" class="inline-flex items-center gap-1 cursor-pointer">-->
+<!--                Cover <mat-icon>camera_alt</mat-icon>-->
+<!--            </label>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="user.backgroundImage" class="mt-2">-->
+<!--        <img [src]="user.backgroundImage" class="w-full h-48 rounded-md object-cover" alt="Cover Image">-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="w-full rounded-sm bg-cover bg-center bg-no-repeat flex flex-col items-center"-->
+<!--    [ngStyle]="{'background-image': user.backgroundImage? 'url(' + user.backgroundImage + ')': 'none'}">-->
+<!--    &lt;!&ndash; Profile Image Section &ndash;&gt;-->
+<!--    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden mt-4">-->
+<!--        <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full rounded-full object-cover" alt="Profile Image"/>-->
+<!--        <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden/>-->
+<!--        <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">-->
+<!--            <mat-icon class="text-white">camera_alt</mat-icon>-->
+<!--        </label>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Cover Image Section &ndash;&gt;-->
+<!--    <div class="w-full flex justify-end mt-4">-->
+<!--        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden/>-->
+<!--        <div class="bg-white flex items-center gap-1 rounded-tl-md px-2 text-center font-semibold">-->
+<!--            <label for="upload_cover" class="inline-flex items-center gap-1 cursor-pointer">-->
+<!--                Cover-->
+<!--                <mat-icon>camera_alt</mat-icon>-->
+<!--            </label>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Display Cover Image if exists &ndash;&gt;-->
+<!--    <div *ngIf="user.backgroundImage" class="w-full mt-2">-->
+<!--        <img [src]="user.backgroundImage" class="w-full h-48 rounded-md object-cover" alt="Cover Image"/>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-6 border-2 border-gray-200 rounded-xl shadow-lg bg-white dark:bg-gray-800">-->
+<!--    <div class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-xl p-6 rounded-xl h-fit self-center dark:bg-gray-900">-->
+<!--        <div class="text-center mb-6">-->
+<!--            <h1 class="text-4xl font-extrabold mb-4 dark:text-white">Profile</h1>-->
+<!--            <form>-->
+<!--                <div class="relative flex flex-col items-center gap-4 bg-gray-100 p-4 rounded-xl dark:bg-gray-700">-->
+<!--                    &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--                    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">-->
+<!--                        <img *ngIf="user.profilePic && !showProfileCropper" [src]="user.profilePic" class="w-full h-full object-cover" alt="Profile Image">-->
+<!--                        <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>-->
+<!--                        <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">-->
+<!--                            <mat-icon class="text-white">camera_alt</mat-icon>-->
+<!--                        </label>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Profile Image Cropper &ndash;&gt;-->
+<!--                    <image-cropper-->
+<!--                        *ngIf="showProfileCropper"-->
+<!--                        [imageChangedEvent]="imageChangedEvent"-->
+<!--                        [maintainAspectRatio]="true"-->
+<!--                        [aspectRatio]="4 / 4"-->
+<!--                        format="png"-->
+<!--                        (imageCropped)="imageCropped($event, 'profile')"-->
+<!--                        (imageLoaded)="imageLoaded()"-->
+<!--                        (cropperReady)="cropperReady()"-->
+<!--                        (loadImageFailed)="loadImageFailed()">-->
+<!--                    </image-cropper>-->
+
+<!--                    &lt;!&ndash; Cover Image &ndash;&gt;-->
+<!--                    <div class="relative w-full mt-4">-->
+<!--                        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>-->
+<!--                        <label for="upload_cover" class="flex items-center justify-center gap-2 cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700">-->
+<!--                            <span>Cover</span>-->
+<!--                            <mat-icon>camera_alt</mat-icon>-->
+<!--                        </label>-->
+<!--                        <img *ngIf="user.backgroundImage && !showCoverCropper" [src]="user.backgroundImage" class="w-full mt-4 rounded-lg object-cover" alt="Cover Image">-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Cover Image Cropper &ndash;&gt;-->
+<!--                    <image-cropper-->
+<!--                        *ngIf="showCoverCropper"-->
+<!--                        [imageChangedEvent]="imageChangedEvent"-->
+<!--                        [maintainAspectRatio]="true"-->
+<!--                        [aspectRatio]="16 / 9"-->
+<!--                        format="png"-->
+<!--                        (imageCropped)="imageCropped($event, 'cover')"-->
+<!--                        (imageLoaded)="imageLoaded()"-->
+<!--                        (cropperReady)="cropperReady()"-->
+<!--                        (loadImageFailed)="loadImageFailed()">-->
+<!--                    </image-cropper>-->
+
+<!--                </div>-->
+
+<!--                <h2 class="text-center mt-6 text-lg font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>-->
+<!--                <div class="mt-6 space-y-4">-->
+<!--                    <div>-->
+<!--                        <label for="username" class="block text-sm font-medium dark:text-gray-300">User Name</label>-->
+<!--                        <input type="text" name="username" id="username" [(ngModel)]="user.username"-->
+<!--                               class="mt-2 w-full border-2 border-gray-300 rounded-lg p-2 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200 dark:focus:ring-blue-500"-->
+<!--                               placeholder="User Name">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <label for="message" class="block text-sm font-medium dark:text-gray-300">Bio</label>-->
+<!--                        <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"-->
+<!--                                  class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"-->
+<!--                                  placeholder="Write your bio here..."></textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex justify-end mt-6">-->
+<!--                    <button type="button" (click)="onSubmit()"-->
+<!--                            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">-->
+<!--                        Save-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<!--<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-6 border-2 border-gray-200 rounded-xl shadow-lg bg-white dark:bg-gray-800">-->
+<!--    <div class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-xl p-6 rounded-xl h-fit self-center dark:bg-gray-900">-->
+<!--        <div class="text-center mb-6">-->
+<!--            <h1 class="text-4xl font-extrabold mb-4 dark:text-white">Profile</h1>-->
+<!--            <form>-->
+<!--                <div class="relative flex flex-col items-center gap-4 bg-gray-100 p-4 rounded-xl dark:bg-gray-700">-->
+<!--                    &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--                    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">-->
+<!--                        <img *ngIf="user.profilePic && !showProfileCropper" [src]="user.profilePic" class="w-full h-full object-cover" alt="Profile Image">-->
+<!--                        <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>-->
+<!--                        <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">-->
+<!--                            <mat-icon class="text-white">camera_alt</mat-icon>-->
+<!--                        </label>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Profile Image Cropper &ndash;&gt;-->
+<!--                    <div *ngIf="showProfileCropper" class="w-full flex justify-center mt-4">-->
+<!--                        <image-cropper-->
+<!--                            [imageChangedEvent]="imageChangedEvent"-->
+<!--                            [maintainAspectRatio]="true"-->
+<!--                            [aspectRatio]="4 / 4"-->
+<!--                            format="png"-->
+<!--                            (imageCropped)="imageCropped($event, 'profile')"-->
+<!--                            (imageLoaded)="imageLoaded()"-->
+<!--                            (cropperReady)="cropperReady()"-->
+<!--                            (loadImageFailed)="loadImageFailed()">-->
+<!--                        </image-cropper>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Cover Image &ndash;&gt;-->
+<!--                    <div class="relative w-full mt-4">-->
+<!--                        <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>-->
+<!--                        <label for="upload_cover" class="flex items-center justify-center gap-2 cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700">-->
+<!--                            <span>Cover</span>-->
+<!--                            <mat-icon>camera_alt</mat-icon>-->
+<!--                        </label>-->
+<!--                        <img *ngIf="user.backgroundImage && !showCoverCropper" [src]="user.backgroundImage" class="w-full mt-4 rounded-lg object-cover" alt="Cover Image">-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Cover Image Cropper &ndash;&gt;-->
+<!--                    <div *ngIf="showCoverCropper" class="w-full flex justify-center mt-4">-->
+<!--                        <image-cropper-->
+<!--                            [imageChangedEvent]="imageChangedEvent"-->
+<!--                            [maintainAspectRatio]="true"-->
+<!--                            [aspectRatio]="16 / 9"-->
+<!--                            format="png"-->
+<!--                            (imageCropped)="imageCropped($event, 'cover')"-->
+<!--                            (imageLoaded)="imageLoaded()"-->
+<!--                            (cropperReady)="cropperReady()"-->
+<!--                            (loadImageFailed)="loadImageFailed()">-->
+<!--                        </image-cropper>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <h2 class="text-center mt-6 text-lg font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>-->
+<!--                <div class="mt-6 space-y-4">-->
+<!--                    <div>-->
+<!--                        <label for="username" class="block text-sm font-medium dark:text-gray-300">User Name</label>-->
+<!--                        <input type="text" name="username" id="username" [(ngModel)]="user.username"-->
+<!--                               class="mt-2 w-full border-2 border-gray-300 rounded-lg p-2 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200 dark:focus:ring-blue-500"-->
+<!--                               placeholder="User Name">-->
+<!--                    </div>-->
+<!--                    <div>-->
+<!--                        <label for="message" class="block text-sm font-medium dark:text-gray-300">Bio</label>-->
+<!--                        <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"-->
+<!--                                  class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"-->
+<!--                                  placeholder="Write your bio here..."></textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="flex justify-end mt-6">-->
+<!--                    <button type="button" (click)="onSubmit()"-->
+<!--                            class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">-->
+<!--                        Save-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

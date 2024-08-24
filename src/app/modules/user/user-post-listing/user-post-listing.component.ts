@@ -12,11 +12,12 @@ export class UserPostListingComponent implements OnInit {
 
     constructor(private postsService: PostService, private userService: UserService) {}
 
+
     ngOnInit(): void {
-        this.userService.getAuthenticatedUser().subscribe(user => {
-            this.postsService.findUsersPost(user.id).subscribe(posts => {
+            this.postsService.findAuthenticatedUserPosts().subscribe(posts => {
                 this.posts = posts;
             });
-        });
     }
+
+
 }

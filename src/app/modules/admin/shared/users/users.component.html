@@ -40,15 +40,16 @@
 
         <!-- Enabled Column -->
         <ng-container matColumnDef="blocked">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> blocked </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
             <mat-cell *matCellDef="let row">
-                <button
-                    mat-raised-button
-                    [color]="row.is_blocked_by_admin ? 'primary' : 'warn'"
-                    (click)="row.is_blocked_by_admin ? blockUser(row.id, row) : unblockUser(row.id, row)">
-                    {{ row.is_blocked_by_admin ?  'Enable' : 'Disable'}}
-                </button>
+                <mat-slide-toggle
+                    [checked]="!row.is_blocked_by_admin"
+                    (change)="onToggleChange(row)">
+                    {{ row.is_blocked_by_admin ? 'Enable' : 'Disable' }}
+                </mat-slide-toggle>
             </mat-cell>
+
+
         </ng-container>
 
         <!-- Row shown when there is no matching data. -->

@@ -1,31 +1,23 @@
-<div class="bg-neutral-700 h-44 relative">
+<div class="bg-neutral-700 h-52 relative">
+    <img [src]="backgroundImage" class="h-full">
     <div class="absolute -bottom-16 left-4">
-        <Avatar [isLarge]="true" [hasBorder]="true"/>
-        <a href="#">
-<!--            <img [src]="profileImage" alt="User Posts" class="w-full h-fit"/>-->
-        </a>
+        <div class="w-13 h-13 rounded-full border-2 border-blue-500">
+            <img [src]="profileImage" alt="User Posts" class="w-52 h-52 rounded-full"/>
+        </div>
     </div>
 </div>
 <!-- Bio -->
 <div class="border-b-[1px] border-neutral-800 pb-4">
     <div class="flex justify-end p-2">
-        <app-button (click)="edit()"
-                    label="Edit Profile" [secondary]="true">
-        </app-button>
+        <app-button (click)="edit()" label="Edit Profile" [secondary]="true"></app-button>
     </div>
     <div class="mt-8 px-4">
         <div class="flex flex-col">
-            <p class="text-white text-2xl font-semibold">
-                {{ userName }}
-            </p>
-            <p class="text-md text-neutral-500">
-                {{ email }}
-            </p>
+            <p class="text-white text-2xl font-semibold">{{ userName }}</p>
+            <p class="text-md text-neutral-500">{{ email }}</p>
         </div>
         <div class="flex flex-col mt-4">
-            <p class="text-white">
-                Bio
-            </p>
+            <p class="text-white">{{bio}}</p>
         </div>
         <div class="flex flex-row items-center mt-4 gap-6">
             <div class="flex flex-row item-center gap-1">

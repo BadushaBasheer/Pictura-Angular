@@ -26,7 +26,6 @@ export class SidebarComponent implements OnInit {
         });
     }
 
-
     selectedRoute: string = '/user';
 
     items: Array<SideBarItems> = [
@@ -34,6 +33,11 @@ export class SidebarComponent implements OnInit {
             label: 'Home',
             route: '/user',
             icon: 'home',
+        },
+        {
+            label: 'Search',
+            route: 'search',
+            icon: 'search'
         },
         {
             label: 'Messages',
@@ -46,10 +50,11 @@ export class SidebarComponent implements OnInit {
             icon: 'notifications',
         },
         {
-            label: 'Search',
-            route: 'search',
-            icon: 'search'
+            label: 'Saved',
+            route: 'saved',
+            icon: 'bookmark_border'
         }
+
     ]
 
     constructor(

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 const TOKEN = 'token';
 const USER = 'user';
+const REFRESH_TOKEN = 'refreshToken';
 
 
 @Injectable({
@@ -14,6 +15,12 @@ export class StorageService {
         localStorage.setItem(TOKEN, token);
     }
 
+    public static saveRefreshToken(refreshToken: string): void {
+        localStorage.removeItem(REFRESH_TOKEN);
+        localStorage.setItem(REFRESH_TOKEN, refreshToken);
+    }
+
+
     public static saveUser(user: any): void {
         localStorage.removeItem(USER);
         localStorage.setItem(USER, JSON.stringify(user));
@@ -22,6 +29,11 @@ export class StorageService {
     public static getToken(): string {
         const token = localStorage.getItem(TOKEN);
         return token ? token : '';
+    }
+
+    public static getRefreshToken(): string {
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        return refreshToken ? refreshToken : '';
     }
 
     public static getUser(): any {
@@ -48,6 +60,7 @@ export class StorageService {
     public static isUserLoggedIn(): boolean {
         const token = this.getToken();
         const role = this.getUserRole();
+        // const refreshToken = this.getRefreshToken();
         return token !== '' && role === 'USER';
     }
 
@@ -58,8 +71,8 @@ export class StorageService {
 
     public static logout(): void {
         window.localStorage.removeItem(TOKEN);
+        window.localStorage.removeItem(REFRESH_TOKEN);
         window.localStorage.removeItem(USER);
-        window.localStorage.clear()
-
+        window.localStorage.clear();
     }
 }

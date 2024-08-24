@@ -1,41 +1,3 @@
-<!--<div *ngFor="let post of posts" class="mt-5 ml-5 mr-5 mb-5">-->
-<!--    <div class="max-w-xl bg-gray-800 rounded-xl border-gray-200 shadow-lg">-->
-<!--        <div class="flex items-center p-1 pl-3">-->
-<!--            <img [src]="'/assets/images/user.png'" alt="User Profile" class="w-8 h-8 rounded-full mr-3"/>-->
-<!--            <p class="text-1 font-light tracking-tight text-white">{{ post.user.name }}</p>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <p class="mt-2 text-white">{{ post.caption }}</p>-->
-
-<!--        </div>-->
-<!--        <div>-->
-<!--            <img [src]="post.image.url" alt="User Posts" class="w-full h-fit"/>-->
-<!--        </div>-->
-<!--        <div class="p-6">-->
-<!--            <div class="flex items-center justify-between">-->
-<!--                <div class="flex space-x-4 text-white">-->
-<!--                    <span class="text-white">{{ post.liked.length}}</span>-->
-<!--                    <button mat-icon-button aria-label="Like"-->
-<!--                            class="hover:text-red-600 transition-colors duration-200 ease-in-out"-->
-<!--                            (click)="likePost(post.id)">-->
-<!--                        <mat-icon>favorite</mat-icon>-->
-<!--                    </button>-->
-<!--                    <button mat-icon-button aria-label="Comment"-->
-<!--                            class="hover:text-blue-600 transition-colors duration-200 ease-in-out">-->
-<!--                        <mat-icon>comment</mat-icon>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <div class="text-white">-->
-<!--                    <button mat-icon-button aria-label="Share"-->
-<!--                            class="hover:text-green-600 transition-colors duration-200 ease-in-out">-->
-<!--                        <mat-icon>share</mat-icon>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div *ngFor="let post of posts" class="p-4">
     <div class="max-w-3xl mx-auto bg-gray-900 text-white rounded-xl shadow-lg overflow-hidden">
         <div class="flex items-center p-5 border-b border-gray-700">
@@ -52,23 +14,39 @@
             <div class="flex items-center justify-between">
                 <div class="flex space-x-4">
                     <span class="text-sm">{{ post.liked.length }}</span>
-                    <button mat-icon-button aria-label="Like"
+
+<!--                    <button mat-icon-button aria-label="Like"-->
+<!--                            class="hover:text-red-600 transition-colors duration-200 ease-in-out"-->
+<!--                            (click)="likePost(post.id)">-->
+<!--                        <mat-icon>favorite</mat-icon>-->
+<!--                    </button>-->
+                    <button mat-icon-button
+                            [ngClass]="{ 'text-red-600': isLiked, 'text-gray-400': !isLiked }"
+                            aria-label="Like"
                             class="hover:text-red-600 transition-colors duration-200 ease-in-out"
                             (click)="likePost(post.id)">
                         <mat-icon>favorite</mat-icon>
                     </button>
+
+
                     <button mat-icon-button aria-label="Comment"
                             class="hover:text-blue-500 transition-colors duration-200 ease-in-out">
                         <mat-icon>comment</mat-icon>
                     </button>
                 </div>
                 <div>
-                    <button mat-icon-button aria-label="Share"
-                            class="hover:text-green-500 transition-colors duration-200 ease-in-out">
-                        <mat-icon>share</mat-icon>
+                    <button mat-icon-button aria-label="Bookmark"
+                            (click)="toggleBookmark()"
+                            [matTooltip]="isBookmarked ? 'discard' : 'save'"
+                            class="hover:text-blue-500 transition-colors duration-200 ease-in-out">
+                        <mat-icon >
+                            {{ isBookmarked ? 'bookmark' : 'bookmark_border' }}
+                        </mat-icon>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+

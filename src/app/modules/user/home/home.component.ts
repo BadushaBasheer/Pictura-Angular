@@ -6,27 +6,48 @@ import {BehaviorSubject, Observable} from "rxjs";
 @Component({
     selector: 'app-layout',
     template: `
+        <!--        <div class="h-full bg-black ">-->
+        <!--            <div class="container h-full mx-auto xl:px-30 max-w-6xl">-->
+        <!--                <div class="grid grid-cols-4 h-full">-->
+        <!--                    &lt;!&ndash; Sidebar &ndash;&gt;-->
+        <!--                    <app-sidebar class="sticky top-0 h-screen"/>-->
+        <!--                    <div class="col-span-3 lg:col-span-2 border-x-[1px] border-gray-500">-->
+        <!--                        <app-header/>-->
+        <!--                        <router-outlet/>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash; Follow Bar &ndash;&gt;-->
+        <!--                    <div *ngIf="(showFollowBar | async)">-->
+        <!--                        <app-follow-bar class="sticky top-0 h-screen"/>-->
+        <!--                    </div>-->
+        <!--                    <div *ngIf="!(showFollowBar | async)">-->
+        <!--                        <chat-room class="sticky top-0 h-screen"/>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="h-full bg-black ">
             <div class="container h-full mx-auto xl:px-30 max-w-6xl">
                 <div class="grid grid-cols-4 h-full">
                     <!-- Sidebar -->
-                    <app-sidebar class="sticky top-0 h-screen"/>
-                    <div class="col-span-3 lg:col-span-2 border-x-[1px] border-gray-500">
-                        <app-header/>
-                        <router-outlet/>
+                    <app-sidebar class="sticky top-0 h-screen"></app-sidebar>
+
+                    <div [ngClass]="{
+                'col-span-3 lg:col-span-2 border-x-[1px] border-gray-500': (showFollowBar | async),
+                'col-span-3 lg:col-span-3 border-l-[1px] border-gray-500': !(showFollowBar | async)
+                }"
+                    >
+                        <app-header></app-header>
+                        <router-outlet></router-outlet>
                     </div>
+
                     <!-- Follow Bar -->
                     <div *ngIf="(showFollowBar | async)">
-                        <app-follow-bar class="sticky top-0 h-screen"/>
-                    </div>
-                    <div *ngIf="!(showFollowBar | async)">
-<!--                        <user-chat class="sticky top-0 h-screen"/>-->
-                        <chat-room class="sticky top-0 h-screen"/>
-
+                        <app-follow-bar class="sticky top-0 h-screen"></app-follow-bar>
                     </div>
                 </div>
             </div>
         </div>
+
     `,
 })
 export class HomeComponent implements OnInit {

@@ -34,12 +34,29 @@ export class AdminService {
     }
 
     // Block a user by admin
+    // blockUserByAdmin(id: number): Observable<any> {
+    //     return this.http.post<any>(`${this.apiUrl}/block-user/${id}`, {});
+    // }
     blockUserByAdmin(id: number): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/block-user/${id}`, {});
+        return this.http.post<any>(`${this.apiUrl}/block/${id}`, {});
+    }
+
+    blockUser(blockedId: number): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/block/${blockedId}`, {});
     }
 
     // Unblock a user by admin
-    unblockUserByAdmin(id: number): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/unblock-user/${id}`, {});
+    // unblockUserByAdmin(id: number): Observable<any> {
+    //     return this.http.post<any>(`${this.apiUrl}/unblock-user/${id}`, {});
+    // }
+
+    // unblockUser(id: number): Observable<any> {
+    //     return this.http.post<boolean>(`${this.apiUrl}/admin/unblock/${id}`, {});
+    // }
+
+    unblockUser(id: number): Observable<{ success: boolean }> {
+        return this.http.post<{ success: boolean }>(`${this.apiUrl}/unblock/${id}`, {});
     }
+
+
 }

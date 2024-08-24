@@ -5,16 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class UserDataService {
 
-    // private userEmail: string | null = null;
-    //
-    // setEmail(email: string): void {
-    //     this.userEmail = email;
-    // }
-    //
-    // getEmail(): string | null {
-    //     return this.userEmail;
-    // }
-
     //Store it in the local storage
     private userEmail: string = 'userEmail';
 

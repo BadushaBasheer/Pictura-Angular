@@ -15,7 +15,7 @@ export class MessageService {
 
     constructor(private http: HttpClient) {}
 
-    sendMessage(request: SendMessageRequest): Observable<Message> {
+    sendMessage(request: any): Observable<Message> {
         return this.http.post<Message>(`${this.baseUrl}/create`, request);
     }
 
