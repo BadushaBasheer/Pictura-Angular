@@ -26,6 +26,9 @@ import {ImageCropperComponent} from "ngx-image-cropper";
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from "@angular/platform-browser";
 import { UserPostListingComponent } from './user-post-listing/user-post-listing.component';
 import {MessagesComponent} from "./messages/messages.component";
+import { ViewPostComponent } from './view-post/view-post.component';
+import { UserListModalComponent } from './user-list-modal/user-list-modal.component';
+import { SavedPostComponent } from './saved-post/saved-post.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +48,10 @@ import {MessagesComponent} from "./messages/messages.component";
         LogoutComponent,
         SearchComponent,
         UserPostListingComponent,
-        MessagesComponent
+        MessagesComponent,
+        ViewPostComponent,
+        UserListModalComponent,
+        SavedPostComponent
     ],
 
     imports: [

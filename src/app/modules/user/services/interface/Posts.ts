@@ -1,6 +1,5 @@
 import {Users} from "./Users";
 
-
 export interface Posts {
     id: number;
     caption: string;
@@ -24,6 +23,7 @@ export interface ApiResponse {
     message: string;
     success: boolean;
 }
+
 
 
 export interface Comment{

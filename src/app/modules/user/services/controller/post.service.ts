@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
 import {environment} from "../../../../environments/environment";
-import {Posts} from "../interface/Posts";
-import {ApiResponse} from "../interface";
+import {ApiResponse, Posts} from "../interface/Posts";
 
 @Injectable({
     providedIn: 'root'
@@ -30,8 +29,8 @@ export class PostService {
         return this.http.get<Posts>(`${this.apiUrl}/${postId}`);
     }
 
-    savePostById(postId: number, userId: number): Observable<Posts> {
-        return this.http.put<Posts>(`${this.apiUrl}/save/${postId}/user/${userId}`, null);
+    savePostById(postId: number): Observable<Posts> {
+        return this.http.put<Posts>(`${this.apiUrl}/save/${postId}`, null);
     }
 
     likePostById(postId: number, userId: number): Observable<Posts> {

@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Posts} from "../services/interface/Posts";
 import {PostService} from "../services/controller/post.service";
 import {UserService} from "../services/controller/user.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ViewPostComponent} from "../view-post/view-post.component";
 
 @Component({
   selector: 'user-post-listing',
@@ -10,7 +12,7 @@ import {UserService} from "../services/controller/user.service";
 export class UserPostListingComponent implements OnInit {
     posts: Posts[] = [];
 
-    constructor(private postsService: PostService, private userService: UserService) {}
+    constructor(private postsService: PostService, private dialog: MatDialog) {}
 
 
     ngOnInit(): void {
@@ -19,5 +21,10 @@ export class UserPostListingComponent implements OnInit {
             });
     }
 
+    openPostDetail(post: any) {
+        this.dialog.open(ViewPostComponent,{
+            data: post,
+        });
+    }
 
 }

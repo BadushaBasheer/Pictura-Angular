@@ -54,7 +54,19 @@
                         <p class="text-white text-center font-light text-[15px] pt-[10px]">
                             {{userName}}
                         </p>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                <mat-icon class="text-white" >more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu" yPosition="above">
+                                <button mat-menu-item>
+                                    <mat-icon>dialpad</mat-icon>
+                                    <span>Redial</span>
+                                </button>
+                            </mat-menu>
+                        </div>
                     </div>
+
 
                 </div>
 

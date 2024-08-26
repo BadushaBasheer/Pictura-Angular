@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit {
         },
         {
             label: 'Saved',
-            route: 'saved',
+            route: 'saved-post',
             icon: 'bookmark_border'
         }
 

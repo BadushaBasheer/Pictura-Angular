@@ -8,6 +8,7 @@ import {MessagesComponent} from "./messages/messages.component";
 import {roleGuard} from "../../auth/components/services/guard/role.guard";
 import {SearchComponent} from "./shared/search.component";
 import {FollowBarComponent} from "./shared/follow-bar.component";
+import {SavedPostComponent} from "./saved-post/saved-post.component";
 
 const routes: Routes = [
     {
@@ -20,6 +21,7 @@ const routes: Routes = [
             {path: 'search', component: SearchComponent, data: {title: 'Search'}},
             { path: 'follow-bar', component: FollowBarComponent },
             {path: 'user/:id', component: UserProfileComponent},
+            {path: 'saved-post', component: SavedPostComponent, data: {title: 'Saved Posts'}},
             {path: 'notification', component: NotificationComponent, data: {title: 'Notification'}},
             {path: 'messages', component: MessagesComponent, data: {title: 'Messages'}},
         ]

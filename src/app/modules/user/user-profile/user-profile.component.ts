@@ -22,20 +22,15 @@ export class UserProfileComponent implements OnInit {
     backgroundImage: String = '';
     isUser: boolean = true;
     bio: String | undefined;
-    currentUserId: string = '';
 
 
     constructor(private dialog: MatDialog,
                 private userService: UserService,
-                private auth: AuthService,
-                private activatedRoute: ActivatedRoute) {
+              ) {
     }
 
     ngOnInit(): void {
         this.getCurrentUserProfileInfo();
-        // if(StorageService.isUserLoggedIn()) {
-        //     this.userService.getUserById()
-        // }
     }
 
     toggleFollow(): void {
@@ -68,4 +63,11 @@ export class UserProfileComponent implements OnInit {
     }
 
 
+    showFollowers() {
+
+    }
+
+    showFollowing() {
+
+    }
 }

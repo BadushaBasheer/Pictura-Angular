@@ -20,11 +20,11 @@
             <p class="text-white">{{bio}}</p>
         </div>
         <div class="flex flex-row items-center mt-4 gap-6">
-            <div class="flex flex-row item-center gap-1">
+            <div class="flex flex-row item-center gap-1" (click)="showFollowing()">
                 <p class="text-white">{{ followingCount }}</p>
                 <p class="text-neutral-500">Following</p>
             </div>
-            <div class="flex flex-row items-center gap-1">
+            <div class="flex flex-row items-center gap-1" (click)="showFollowers()">
                 <p class="text-white">{{ followersCount }}</p>
                 <p class="text-neutral-500">Followers</p>
             </div>

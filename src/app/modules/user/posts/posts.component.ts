@@ -1,13 +1,19 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {Posts} from "../services/interface/Posts";
 import {PostService} from "../services/controller/post.service";
 import {StorageService} from "../../../auth/components/services/storage/storage.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {catchError, of, Subject, takeUntil} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {UserService} from "../services/controller/user.service";
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html'
+    selector: 'app-posts',
+    templateUrl: './posts.component.html'
 })
 export class PostsComponent implements OnInit {
+
+    selectedUserProfile: any;
 
     posts: Posts[] = [];
 
@@ -15,8 +21,15 @@ export class PostsComponent implements OnInit {
 
     isLiked: boolean = false;
 
-    constructor(private postService: PostService, private cdr: ChangeDetectorRef) { }
+    protected readonly loggedInUserId = StorageService.getUserId()
 
+
+    constructor(private postService: PostService,
+                private cdr: ChangeDetectorRef,
+                private snackBar: MatSnackBar,
+                private userService: UserService,
+                private dialog: MatDialog) {
+    }
 
     ngOnInit(): void {
         this.fetchPosts();
@@ -29,9 +42,10 @@ export class PostsComponent implements OnInit {
         });
     }
 
-    toggleBookmark() {
-        this.isBookmarked = !this.isBookmarked;
-    }
+    // toggleBookmark() {
+    //     this.isBookmarked = !this.isBookmarked;
+    // }
+
 
     likePost(postId: number): void {
         const userId = StorageService.getUserId();
@@ -58,6 +72,74 @@ export class PostsComponent implements OnInit {
         return post.liked.includes(userId);
     }
 
+    onDeletePost(postId: number): void {
+        const userId = StorageService.getUserId();
+        const post = this.posts.find(post => post.id === postId);
 
+        if (post && post.user.id === userId) {
+            this.postService.deletePost(postId).pipe(
+                catchError(error => {
+                    this.snackBar.open("Error deleting post", "Close", {duration: 5000})
+                    console.error('Error deleting post:', error);
+                    return of(void 0);
+                })
+            ).subscribe(() => {
+                this.posts = this.posts.filter(post => post.id !== postId);
+                this.snackBar.open("Post deleted successfully", "Close", {duration: 5000})
+                this.dialog.closeAll();
+                console.log('Post deleted successfully');
+            });
+        } else {
+            this.snackBar.open("User is not authorized to delete this post", "Close", {duration: 5000})
+            console.error('User is not authorized to delete this post');
+        }
+    }
+
+
+    openDialog(templateRef: TemplateRef<any>) {
+        let dialogRef = this.dialog.open(templateRef, {
+            width: '300px'
+        });
+    }
+
+    onCancel(): void {
+        this.dialog.closeAll();
+    }
+
+    postOwnerProfile(id: number) {
+        // this.userService.getUserById(id).pipe((response) => {
+        //     console.log(response);
+        //     this.selectedUserProfile = response;
+        // }, (error) => {
+        //     console.error('Error fetching user profile:', error);
+        // });
+    }
+
+
+    private destroy$ = new Subject<void>();
+
+    toggleBookmark(postId: number) {
+        this.isBookmarked = !this.isBookmarked;
+        if (this.isBookmarked) {
+            this.savePost(postId);
+        } else {
+            this.snackBar.open("Post unbookmarked", "Close", { duration: 5000 });
+        }
+    }
+
+    savePost(postId: number) {
+        this.postService.savePostById(postId).pipe(
+            catchError(error => {
+                this.snackBar.open("Error saving post", "Close", { duration: 5000 });
+                console.error('Error saving post:', error);
+                return of(null); // Handle error scenario
+            })
+        ).subscribe(response => {
+            if (response) {
+                this.snackBar.open("Post saved successfully", "Close", { duration: 5000 });
+                console.log(response);
+            }
+        });
+    }
 
 }
