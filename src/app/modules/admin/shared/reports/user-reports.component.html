@@ -1,0 +1,32 @@
+<div class="container mx-auto mt-28 p-6 bg-gray-800 rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-white mb-4">All User Blocks</h2>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8 bg-white rounded-lg overflow-hidden">
+
+        <ng-container matColumnDef="blocker">
+            <mat-header-cell *matHeaderCellDef class="bg-gray-200 text-gray-700 px-4 py-2"> Blocker</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="px-4 py-2"><strong>{{ element.blockerName }} </strong>
+                ({{ element.blockerEmail }})
+            </mat-cell>
+        </ng-container>
+
+        <!-- Blocked Column -->
+        <ng-container matColumnDef="blocked">
+            <mat-header-cell *matHeaderCellDef class="bg-gray-200 text-gray-700 px-4 py-2"> Blocked User
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="px-4 py-2"><strong>{{ element.blockedName }}</strong>
+                ({{ element.blockedEmail }})
+            </mat-cell>
+        </ng-container>
+
+        <!-- Blocked Date Column -->
+        <ng-container matColumnDef="blockedDate">
+            <mat-header-cell *matHeaderCellDef class="bg-gray-200 text-gray-700 px-4 py-2"> Date Blocked
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="px-4 py-2"> {{ element.blockedDate | date: 'short' }}</mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

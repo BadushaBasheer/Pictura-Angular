@@ -1,15 +1,102 @@
+<!--<div class="relative mt-5 ml-5 mr-5 mb-5">-->
+<!--    <div *ngIf="followedUsers.length > 0; else noUsers"-->
+<!--         class="transition-all duration-300 ease-in-out xl:w-[33rem] lg:w-96 sm:w-52 bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-900 dark:border-gray-700">-->
+<!--        <mat-list role="list"-->
+<!--                  class="scrollbar-hide divide-y divide-gray-200 dark:divide-gray-700 max-h-[37rem] overflow-y-auto">-->
+<!--            <ng-container *ngFor="let user of followedUsers">-->
+<!--                <a (click)="selectUser(user)"-->
+<!--                   class="block hover:bg-gray-800 rounded-lg transition duration-200 ease-in-out">-->
+<!--                    <div class="flex items-center gap-4 p-4" (click)="userId(user.id)">-->
+<!--                        &lt;!&ndash; Avatar &ndash;&gt;-->
+<!--                        <div-->
+<!--                            class="rounded-full h-14 w-14 overflow-hidden transform transition-transform duration-300 hover:scale-110">-->
+<!--                            <img [src]="user.profilePic" alt="{{user.name}}" class="object-cover h-full w-full">-->
+<!--                        </div>-->
+<!--                        <div class="flex flex-1 justify-between items-center">-->
+<!--                            <p class="text-white font-mono text-lg">-->
+<!--                                {{ user.name }}-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </ng-container>-->
+<!--        </mat-list>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Chat Window &ndash;&gt;-->
+<!--    <div class=" transition-all duration-300 ease-in-out absolute top-0 left-[34rem] w-[30rem]" *ngIf="selectedUser">-->
+<!--        <div-->
+<!--            class="msg-header border border-gray-300 w-full h-16 bg-black rounded-t-xl flex items-center justify-between">-->
+<!--            <div class="flex items-center">-->
+<!--                <div-->
+<!--                    class="rounded-full ml-5 h-10 w-10 overflow-hidden transform transition-transform duration-300 hover:scale-110">-->
+<!--                    <img [src]="selectedUser.profilePic" alt="{{selectedUser.name}}" class="object-cover h-full w-full">-->
+<!--                </div>-->
+<!--                <div class="ml-2 mt-3">-->
+<!--                    <p class="text-white font-bold">{{ selectedUser.name }}</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <a (click)="openVideoCall()" class="mr-7 mb-3 mt-2">-->
+<!--                <span class="material-icons text-blue-600 text-4xl cursor-pointer" matTooltip="Start a video call">video_call</span>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="chat-page pb-2">-->
+<!--            <div class="msg-inbox border border-gray-300 overflow-hidden rounded-b-xl">-->
+<!--                <div class="chats px-6 pt-8 pr-2">-->
+<!--                    <div class="scrollbar-hide msg-page flex flex-col-reverse h-[27rem] overflow-y-auto">-->
+<!--                        <div *ngFor="let msg of chatMessages" class="mb-5">-->
+<!--                            <div *ngIf="msg.user.id === getCurrentUserId()" class="flex items-start justify-end">-->
+<!--                                <div class="bg-green-800 from-pink-500 via-purple-500 to-indigo-500 p-4 rounded-lg shadow-md">-->
+<!--                                    <p class="text-sm text-white mb-2">{{ msg.content }}</p>-->
+<!--                                    <span class="time text-gray-300 text-xs block mt-2">-->
+<!--                                        {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div *ngIf="msg.user.id !== getCurrentUserId()" class="flex items-start">-->
+<!--                                <div class="bg-gray-700 from-blue-200 via-blue-300 to-blue-400  p-3 rounded-lg shadow-md">-->
+<!--                                    <p class="text-sm text-white mb-2">{{ msg.content }}</p>-->
+<!--                                    <span class="time text-gray-300 text-xs block mt-2">-->
+<!--                                        {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="msg-bottom border-t border-white h-16 relative flex items-center justify-center">-->
+<!--                    <div class="input-group flex items-center w-full rounded-full shadow-md overflow-hidden">-->
+<!--                        <input type="text" [(ngModel)]="message"-->
+<!--                               class="ml-4 flex-1 outline-none bg-black py-2 px-4 rounded-full text-white placeholder-white focus:ring-2 focus:ring-blue-500 transition duration-200"-->
+<!--                               placeholder="Write a message..."/>-->
+<!--                        <span (click)="sendMessage()"-->
+<!--                              class="text-white cursor-pointer p-3 transition-transform transform hover:scale-110">-->
+<!--                                    <mat-icon matTooltip="send">send</mat-icon>-->
+<!--                                </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<ng-template #noUsers>-->
+<!--    <div class="text-center text-gray-500 text-lg font-medium mt-10">-->
+<!--        You haven't followed anyone yet.-->
+<!--    </div>-->
+<!--</ng-template>-->
+
 <div class="relative mt-5 ml-5 mr-5 mb-5">
+    <!-- Followed Users List -->
     <div *ngIf="followedUsers.length > 0; else noUsers"
          class="transition-all duration-300 ease-in-out xl:w-[33rem] lg:w-96 sm:w-52 bg-white rounded-lg border border-gray-200 shadow-lg dark:bg-gray-900 dark:border-gray-700">
-        <mat-list role="list"
-                  class="scrollbar-hide divide-y divide-gray-200 dark:divide-gray-700 max-h-[37rem] overflow-y-auto">
+        <mat-list role="list" class="scrollbar-hide divide-y divide-gray-200 dark:divide-gray-700 max-h-[37rem] overflow-y-auto">
             <ng-container *ngFor="let user of followedUsers">
                 <a (click)="selectUser(user)"
                    class="block hover:bg-gray-800 rounded-lg transition duration-200 ease-in-out">
-                    <div class="flex items-center gap-4 p-4" (click)="userId(user.id)">
+                    <div class="flex items-center gap-4 p-4">
                         <!-- Avatar -->
-                        <div
-                            class="rounded-full h-14 w-14 overflow-hidden transform transition-transform duration-300 hover:scale-110">
+                        <div class="rounded-full h-14 w-14 overflow-hidden transform transition-transform duration-300 hover:scale-110">
                             <img [src]="user.profilePic" alt="{{user.name}}" class="object-cover h-full w-full">
                         </div>
                         <div class="flex flex-1 justify-between items-center">
@@ -24,12 +111,10 @@
     </div>
 
     <!-- Chat Window -->
-    <div class=" transition-all duration-300 ease-in-out absolute top-0 left-[34rem] w-[30rem]" *ngIf="selectedUser">
-        <div
-            class="msg-header border border-gray-300 w-full h-16 bg-black rounded-t-xl flex items-center justify-between">
+    <div class="transition-all duration-300 ease-in-out absolute top-0 left-[34rem] w-[30rem]" *ngIf="selectedUser">
+        <div class="msg-header border border-gray-300 w-full h-16 bg-black rounded-t-xl flex items-center justify-between">
             <div class="flex items-center">
-                <div
-                    class="rounded-full ml-5 h-10 w-10 overflow-hidden transform transition-transform duration-300 hover:scale-110">
+                <div class="rounded-full ml-5 h-10 w-10 overflow-hidden transform transition-transform duration-300 hover:scale-110">
                     <img [src]="selectedUser.profilePic" alt="{{selectedUser.name}}" class="object-cover h-full w-full">
                 </div>
                 <div class="ml-2 mt-3">
@@ -45,20 +130,22 @@
                 <div class="chats px-6 pt-8 pr-2">
                     <div class="scrollbar-hide msg-page flex flex-col-reverse h-[27rem] overflow-y-auto">
                         <div *ngFor="let msg of chatMessages" class="mb-5">
+                            <!-- Outgoing Message -->
                             <div *ngIf="msg.user.id === getCurrentUserId()" class="flex items-start justify-end">
                                 <div class="bg-green-800 from-pink-500 via-purple-500 to-indigo-500 p-4 rounded-lg shadow-md">
                                     <p class="text-sm text-white mb-2">{{ msg.content }}</p>
                                     <span class="time text-gray-300 text-xs block mt-2">
-                                        {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}
-                                    </span>
+                    {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}
+                  </span>
                                 </div>
                             </div>
+                            <!-- Incoming Message -->
                             <div *ngIf="msg.user.id !== getCurrentUserId()" class="flex items-start">
-                                <div class="bg-gray-700 from-blue-200 via-blue-300 to-blue-400  p-3 rounded-lg shadow-md">
+                                <div class="bg-gray-700 from-blue-200 via-blue-300 to-blue-400 p-3 rounded-lg shadow-md">
                                     <p class="text-sm text-white mb-2">{{ msg.content }}</p>
                                     <span class="time text-gray-300 text-xs block mt-2">
-                                        {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}
-                                    </span>
+                    {{ msg.timeStamp | date:'shortTime' }} | {{ msg.timeStamp | date:'MMM d' }}
+                  </span>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +158,8 @@
                                placeholder="Write a message..."/>
                         <span (click)="sendMessage()"
                               class="text-white cursor-pointer p-3 transition-transform transform hover:scale-110">
-                                    <mat-icon matTooltip="send">send</mat-icon>
-                                </span>
+              <mat-icon matTooltip="Send">send</mat-icon>
+            </span>
                     </div>
                 </div>
             </div>
@@ -85,4 +172,3 @@
         You haven't followed anyone yet.
     </div>
 </ng-template>
-

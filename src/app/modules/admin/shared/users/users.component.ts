@@ -181,7 +181,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Observable, of} from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {Users} from "../../services/users";
+import {Users} from "../../services/interfaces/users";
 import {AdminService} from "../../services/admin.service";
 
 @Component({
@@ -233,51 +233,94 @@ export class UsersComponent implements OnInit, AfterViewInit {
         });
     }
 
-    blockUser(blockedId: number): Observable<boolean> {
-        return this.adminService.blockUser(blockedId).pipe(
+    // blockUser(blockedId: number) {
+    //      this.adminService.blockUserByAdmin(blockedId).pipe(
+    //         catchError((error) => {
+    //             console.error('Error blocking user:', error);
+    //             this.snackBar.open('Error occurred while blocking. Please try again.', 'Close', { duration: 2000 });
+    //             return of(false);
+    //         })
+    //     );
+    // }
+    //
+    // unblockUser(blockedId: number){
+    //      this.adminService.unblockUserByAdmin(blockedId).pipe(
+    //         catchError((error) => {
+    //             console.error('Error unblocking user:', error);
+    //             this.snackBar.open('Error occurred while unblocking. Please try again.', 'Close', { duration: 2000 });
+    //             return of({ success: false });
+    //         })
+    //     );
+    // }
+
+    // onToggleChange(row: any): void {
+    //     const newState = !row.is_blocked_by_admin;
+    //
+    //     if (newState) {
+    //         this.unblockUser(row.id).subscribe((response: { success: boolean }) => {
+    //             if (response.success) {
+    //                 row.is_blocked_by_admin = false;
+    //                 console.log("Unblock user status:", response);
+    //                 this.snackBar.open('Unblock user successfully', 'Close', { duration: 2000 });
+    //
+    //             } else {
+    //                 this.snackBar.open('Failed to unblock user', 'Close', { duration: 2000 });
+    //             }
+    //         });
+    //     } else {
+    //         this.blockUser(row.id).subscribe((response: boolean) => {
+    //             if (response) {
+    //                 row.is_blocked_by_admin = true;
+    //                 console.log("Block user status:", response);
+    //                 this.snackBar.open('Block user successfully', 'Close', { duration: 2000 });
+    //
+    //             } else {
+    //                 this.snackBar.open('Failed to block user', 'Close', { duration: 2000 });
+    //             }
+    //         });
+    //     }
+    // }
+
+    blockUser(blockedId: number) {
+        this.adminService.blockUserByAdmin(blockedId).pipe(
             catchError((error) => {
                 console.error('Error blocking user:', error);
                 this.snackBar.open('Error occurred while blocking. Please try again.', 'Close', { duration: 2000 });
-                return of(false);
+                return of(false); // Return a fallback value
             })
-        );
+        ).subscribe({
+            next: () => {
+                this.snackBar.open('User blocked successfully', 'Close', { duration: 2000 });
+            },
+            error: (error) => {
+                console.error('Unexpected error blocking user:', error);
+            }
+        });
     }
 
-    unblockUser(blockedId: number): Observable<{ success: boolean }> {
-        return this.adminService.unblockUser(blockedId).pipe(
+    // Method to unblock a user
+    unblockUser(blockedId: number) {
+        this.adminService.unblockUserByAdmin(blockedId).pipe(
             catchError((error) => {
                 console.error('Error unblocking user:', error);
                 this.snackBar.open('Error occurred while unblocking. Please try again.', 'Close', { duration: 2000 });
-                return of({ success: false });
+                return of(false); // Return a fallback value
             })
-        );
+        ).subscribe({
+            next: () => {
+                this.snackBar.open('User unblocked successfully', 'Close', { duration: 2000 });
+            },
+            error: (error) => {
+                console.error('Unexpected error unblocking user:', error);
+            }
+        });
     }
 
-    onToggleChange(row: any): void {
-        const newState = !row.is_blocked_by_admin;
-
-        if (newState) {
-            this.unblockUser(row.id).subscribe((response: { success: boolean }) => {
-                if (response.success) {
-                    row.is_blocked_by_admin = false;
-                    console.log("Unblock user status:", response);
-                    this.snackBar.open('Unblock user successfully', 'Close', { duration: 2000 });
-
-                } else {
-                    this.snackBar.open('Failed to unblock user', 'Close', { duration: 2000 });
-                }
-            });
+    onToggleChange(user: Users, isChecked: boolean) {
+        if (isChecked) {
+            this.unblockUser(user.id);
         } else {
-            this.blockUser(row.id).subscribe((response: boolean) => {
-                if (response) {
-                    row.is_blocked_by_admin = true;
-                    console.log("Block user status:", response);
-                    this.snackBar.open('Block user successfully', 'Close', { duration: 2000 });
-
-                } else {
-                    this.snackBar.open('Failed to block user', 'Close', { duration: 2000 });
-                }
-            });
+            this.blockUser(user.id);
         }
     }
 }

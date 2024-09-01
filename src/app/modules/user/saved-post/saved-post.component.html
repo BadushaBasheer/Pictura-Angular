@@ -1,1 +1,19 @@
-<p>saved-post works!</p>
+<div class="p-3">
+    <mat-grid-list class="mb-10" cols="3" rowHeight="3:3" gutterSize="8px" *ngIf="posts.length > 0; else noPostsTemplate">
+        <mat-grid-tile *ngFor="let post of posts" class="bg-gray-200 rounded hover:cursor-pointer"
+                       (click)="openPostDetail(post)">
+            <img [src]="post.image.url" alt="User uploaded image" class="user-image">
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <!-- No posts template -->
+    <ng-template #noPostsTemplate>
+        <div class="flex items-center justify-center h-screen">
+            <div class="text-center">
+                <h4 class="text-gray-400 mt-2">No posts saved yet</h4>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+

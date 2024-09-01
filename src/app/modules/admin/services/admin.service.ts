@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Users } from './users';
+import { Users } from './interfaces/users';
+import {UserBlock} from "./interfaces/user-block";
 
 @Injectable({
     providedIn: 'root'
@@ -37,13 +38,13 @@ export class AdminService {
     // blockUserByAdmin(id: number): Observable<any> {
     //     return this.http.post<any>(`${this.apiUrl}/block-user/${id}`, {});
     // }
-    blockUserByAdmin(id: number): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/block/${id}`, {});
-    }
+    // blockUserByAdmin(id: number): Observable<any> {
+    //     return this.http.post<any>(`${this.apiUrl}/block/${id}`, {});
+    // }
 
-    blockUser(blockedId: number): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/block/${blockedId}`, {});
-    }
+    // blockUser(blockedId: number): Observable<any> {
+    //     return this.http.post<any>(`${this.apiUrl}/block/${blockedId}`, {});
+    // }
 
     // Unblock a user by admin
     // unblockUserByAdmin(id: number): Observable<any> {
@@ -54,9 +55,41 @@ export class AdminService {
     //     return this.http.post<boolean>(`${this.apiUrl}/admin/unblock/${id}`, {});
     // }
 
-    unblockUser(id: number): Observable<{ success: boolean }> {
-        return this.http.post<{ success: boolean }>(`${this.apiUrl}/unblock/${id}`, {});
+    // unblockUser(id: number): Observable<{ success: boolean }> {
+    //     return this.http.post<{ success: boolean }>(`${this.apiUrl}/unblock/${id}`, {});
+    // }
+
+    blockUserByAdmin(userId: number): Observable<Users> {
+        const url = `${this.apiUrl}/block-user/${userId}`;
+        return this.http.post<Users>(url, null);  // Send a POST request to block the user
+    }
+
+    unblockUserByAdmin(userId: number): Observable<Users> {
+        const url = `${this.apiUrl}/unblock-user/${userId}`;
+        return this.http.post<Users>(url, null);  // Send a POST request to unblock the user
     }
 
 
+    getBlockedUsers(userId: number): Observable<UserBlock[]> {
+        return this.http.get<UserBlock[]>(`${this.apiUrl}/${userId}/blocked`);
+    }
+
+    getUsersWhoBlocked(userId: number): Observable<UserBlock[]> {
+        return this.http.get<UserBlock[]>(`${this.apiUrl}/${userId}/blocked-by`);
+    }
+
+    getAllUserBlocks(): Observable<UserBlock[]> {
+        return this.http.get<UserBlock[]>(`${this.apiUrl}/all-blocks`);
+    }
+    getAllUserCount(): Observable<number> {
+        return this.http.get<number>(`${this.apiUrl}/getAllUsersCount`);
+    }
+
+    getAllPostsCount(): Observable<number> {
+        return this.http.get<number>(`${this.apiUrl}/getAllPostsCount`);
+    }
+
+    getAllBlockedAccountsCount(): Observable<number> {
+        return this.http.get<number>(`${this.apiUrl}/getAllBlockedAccountsCount`);
+    }
 }

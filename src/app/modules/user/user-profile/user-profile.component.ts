@@ -6,6 +6,7 @@ import {Users} from "../services/interface/Users";
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from "../../../auth/components/services/auth/auth.service";
 import {StorageService} from "../../../auth/components/services/storage/storage.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-user-profile',
@@ -23,14 +24,34 @@ export class UserProfileComponent implements OnInit {
     isUser: boolean = true;
     bio: String | undefined;
 
+    privacyToggle = new FormControl(false); // Default is public (false)
+    accountStatus: string = 'Public';
+
+    onToggleChange(isPrivate: boolean): void {
+        this.accountStatus = isPrivate ? 'Private' : 'Public';
+        this.updateAccountPrivacy(isPrivate);
+    }
+
+    updateAccountPrivacy(isPrivate: boolean): void {
+        // This function should contain the logic to send the updated privacy
+        // status to the backend via a service call.
+        console.log('Account privacy updated:', isPrivate ? 'Private' : 'Public');
+        // Example: call a service to update user settings
+        // this.userService.updatePrivacy(isPrivate).subscribe(response => {
+        //   // handle response
+        // });
+    }
 
     constructor(private dialog: MatDialog,
                 private userService: UserService,
+                private formBuilder: FormBuilder
               ) {
     }
 
     ngOnInit(): void {
         this.getCurrentUserProfileInfo();
+
+
     }
 
     toggleFollow(): void {

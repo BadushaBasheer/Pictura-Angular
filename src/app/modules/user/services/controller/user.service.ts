@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, Observable, of} from 'rxjs';
 import {Users} from "../interface/Users";
@@ -102,4 +102,10 @@ export class UserService {
             return of(result as T);
         };
     }
+
+    OnUserDetailsClicked: EventEmitter<Users> = new EventEmitter<Users>;
+    OnShowUserDetails(user: Users) {
+        this.OnUserDetailsClicked.emit(user)
+    }
+
 }

@@ -17,6 +17,10 @@ export class PostService {
         return this.http.get<Posts[]>(`${this.apiUrl}`);
     }
 
+    findAllSavedPosts(): Observable<Posts[]> {
+        return this.http.get<Posts[]>(`${this.apiUrl}/savedPosts`);
+    }
+
     findUsersPost(userId: number): Observable<Posts[]> {
         return this.http.get<Posts[]>(`${this.apiUrl}/user/${userId}`);
     }
@@ -33,8 +37,11 @@ export class PostService {
         return this.http.put<Posts>(`${this.apiUrl}/save/${postId}`, null);
     }
 
-    likePostById(postId: number, userId: number): Observable<Posts> {
-        return this.http.put<Posts>(`${this.apiUrl}/like/${postId}/user/${userId}`, null);
+    // likePostById(postId: number, userId: number): Observable<Posts> {
+    //     return this.http.put<Posts>(`${this.apiUrl}/like/${postId}/user/${userId}`, null);
+    // }
+    likePostById(postId: number): Observable<Posts> {
+        return this.http.put<Posts>(`${this.apiUrl}/like/${postId}`, null);
     }
 
     createPost(file: File, caption: string): Observable<any> {

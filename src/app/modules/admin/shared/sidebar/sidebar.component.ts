@@ -25,7 +25,7 @@ export class SidebarComponent {
         },
         {
             label: 'Reports',
-            route: '/reports',
+            route: '/admin/reports',
             icon: 'report'
         },
     ]

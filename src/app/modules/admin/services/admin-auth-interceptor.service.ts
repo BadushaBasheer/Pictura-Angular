@@ -13,7 +13,6 @@ export class AdminInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = StorageService.getToken();
-        // Clone the request to add the new header.
         if (token) {
             const authReq = req.clone({
                 setHeaders: {

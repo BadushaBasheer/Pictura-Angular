@@ -12,13 +12,17 @@
                 <p class="text-lg font-mono">{{ post.user.name }}</p>
             </div>
             <div class="ml-auto flex items-end">
-                <button *ngIf="post.user.id === loggedInUserId" mat-icon-button [matMenuTriggerFor]="editMenu" aria-label="menu">
+                <button mat-icon-button [matMenuTriggerFor]="editMenu" aria-label="menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #editMenu="matMenu" xPosition="before">
-                    <button mat-menu-item (click)="openDialog(deleteConfirmTemplate)">
+                    <button *ngIf="post.user.id === loggedInUserId" mat-menu-item (click)="openDialog(deleteConfirmTemplate)">
                         <mat-icon>delete_forever</mat-icon>
                         <span>Delete</span>
+                    </button>
+                    <button *ngIf="post.user.id !== loggedInUserId" mat-menu-item (click)="reportUser(post.user.id)">
+                        <mat-icon>flag</mat-icon>
+                        <span>Block</span>
                     </button>
                 </mat-menu>
                 <ng-template #deleteConfirmTemplate>
@@ -53,13 +57,22 @@
             <div class="flex items-center justify-between">
                 <div class="flex space-x-4">
                     <span class="text-sm">{{ post.liked.length }}</span>
+<!--                    <button mat-icon-button-->
+<!--                            [ngClass]="{ 'text-red-600': isLiked, 'text-gray-400': !isLiked }"-->
+<!--                            aria-label="Like"-->
+<!--                            class="hover:text-red-600 transition-colors duration-200 ease-in-out"-->
+<!--                            (click)="likePost(post.id)">-->
+<!--                        <mat-icon>favorite</mat-icon>-->
+<!--                    </button>-->
+
                     <button mat-icon-button
-                            [ngClass]="{ 'text-red-600': isLiked, 'text-gray-400': !isLiked }"
+                            [ngClass]="{ 'text-red-600': isPostLikedByUser(post), 'text-gray-400': !isPostLikedByUser(post) }"
                             aria-label="Like"
                             class="hover:text-red-600 transition-colors duration-200 ease-in-out"
                             (click)="likePost(post.id)">
                         <mat-icon>favorite</mat-icon>
                     </button>
+
 
 
                     <button mat-icon-button aria-label="Comment"

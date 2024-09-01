@@ -7,6 +7,7 @@ import {catchError, forkJoin, of} from "rxjs";
 import {AddPostComponent} from "../add-post/add-post.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {SharedService} from "../services/shared-service/shared.service";
 
 @Component({
     selector: 'app-follow-bar',
@@ -34,14 +35,15 @@ import {MatSnackBar} from "@angular/material/snack-bar";
                 <h2 class="text-blue-400 text-2xl font-medium mb-4">People You May Know</h2>
                 <div class="flex flex-col gap-4">
                     <div class="flex justify-center items-center" *ngIf="!users.length">
-                        <loader class="w-12 h-12 text-blue-400 animate-spin"/>
+<!--                        <loader class="w-12 h-12 text-blue-400 animate-spin"/>-->
+                        <custom-loader />
                     </div>
                     <ng-container *ngFor="let user of users">
-                        <a
+                        <a [routerLink]="['/profile', ':' + user.id]"
                            class="hover:bg-gray-800 rounded-lg transition duration-200 ease-in-out">
                             <div class="flex items-center gap-4 p-4 hover:bg-gray-700 rounded-lg">
                                 <!-- Avatar -->
-<!--                                <Avatar class="w-13 h-13 rounded-full border-2 border-blue-500"/>-->
+                                <!--                                <Avatar class="w-13 h-13 rounded-full border-2 border-blue-500"/>-->
                                 <div class="w-13 h-13 rounded-full border-2 border-blue-500">
                                     <img [src]="user.profilePic" alt="User Posts" class="w-full h-fit"/>
                                 </div>
@@ -63,9 +65,15 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     `
 })
 export class FollowBarComponent implements OnInit {
+
     users: Users[] = [];
 
-    constructor(public auth: AuthService, private userService: UserService, private snackBar: MatSnackBar, private dialog: MatDialog,) {
+    constructor(public auth: AuthService,
+                private userService: UserService,
+                private snackBar: MatSnackBar,
+                private dialog: MatDialog,
+                private sharedService: SharedService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -74,7 +82,7 @@ export class FollowBarComponent implements OnInit {
 
     fetchUsers() {
         forkJoin({
-            allUsers: this.userService.getAllUsers(),
+            allUsers: this.userService.getSuggestions(),
             authenticatedUser: this.userService.getAuthenticatedUser()
         }).pipe(
             map(({allUsers, authenticatedUser}) => {
@@ -84,7 +92,7 @@ export class FollowBarComponent implements OnInit {
         ).subscribe({
             next: (randomUsers) => this.users = randomUsers,
             error: (err) => {
-                this.snackBar.open('Failed to fetch users', 'Close', {duration: 500});
+                this.snackBar.open('Failed to fetch users', 'Close', {duration: 3000});
                 console.error('Failed to fetch users', err);
             }
         });
@@ -104,21 +112,27 @@ export class FollowBarComponent implements OnInit {
 
 
     followUser(userId: number) {
-        // const isAlreadyFollowedUser = this.userService.checkIfFollowed(userId);
-        // if (!isAlreadyFollowedUser) {
-            this.userService.followUser(userId).pipe(
-                tap(response => {
-                    console.log('User followed successfully:', response);
-                }),
-                catchError(error => {
-                    console.error('Error following user:', error);
-                    return of(null);
-                })
-            ).subscribe();
-        // } else {
-        //     console.log('User is already followed.');
-        // }
+        this.userService.followUser(userId).pipe(
+            tap(response => {
+                console.log('User followed successfully:', response);
+                this.snackBar.open('User followed successfully', 'Close', {duration: 500});
+            }),
+            catchError(error => {
+                console.error('Error following user:', error);
+                return of(null);
+            })
+        ).subscribe();
     }
 
 
+    // selectedUser(id: number, name: string) {
+    //     const userId = { id } as Users;
+    //     this.sharedService.setSelectedUser(userId);
+    //     console.log("The clicked user id and name : ", id, name)
+    // }
+    selectedUser(id: number, name: string) {
+        const user = {id} as Users;
+        this.sharedService.setSelectedUser(user);
+        this.userService.OnShowUserDetails(user);
+    }
 }

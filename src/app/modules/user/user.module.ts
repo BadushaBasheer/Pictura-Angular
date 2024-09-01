@@ -29,6 +29,8 @@ import {MessagesComponent} from "./messages/messages.component";
 import { ViewPostComponent } from './view-post/view-post.component';
 import { UserListModalComponent } from './user-list-modal/user-list-modal.component';
 import { SavedPostComponent } from './saved-post/saved-post.component';
+import { SelectedUserProfileComponent } from './selected-user-profile/selected-user-profile.component';
+import { CustomLoaderComponent } from './shared/custom-loader.component';
 
 @NgModule({
     declarations: [
@@ -51,7 +53,9 @@ import { SavedPostComponent } from './saved-post/saved-post.component';
         MessagesComponent,
         ViewPostComponent,
         UserListModalComponent,
-        SavedPostComponent
+        SavedPostComponent,
+        SelectedUserProfileComponent,
+        CustomLoaderComponent
     ],
 
     imports: [

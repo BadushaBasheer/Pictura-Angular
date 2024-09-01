@@ -44,10 +44,11 @@
             <mat-cell *matCellDef="let row">
                 <mat-slide-toggle
                     [checked]="!row.is_blocked_by_admin"
-                    (change)="onToggleChange(row)">
+                    (change)="onToggleChange(row, $event.checked)">
                     {{ row.is_blocked_by_admin ? 'Enable' : 'Disable' }}
                 </mat-slide-toggle>
             </mat-cell>
+
 
 
         </ng-container>

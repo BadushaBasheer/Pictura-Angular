@@ -4,35 +4,33 @@
 
 <mat-grid-list [cols]="isSmallScreen ? 1 : 12" [rowHeight]="isSmallScreen ? '3:2' : '2:4'" gutterSize="25px" class="mt-1 ml-5 mr-5">
     <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
-        <div class="h-full flex items-center justify-center">
-            <!-- Chart 1 -->
-            <div class="text-center text-white">Chart 1</div>
+        <div class="flex flex-col items-center justify-center w-full h-full p-6 bg-gray-950 rounded-lg shadow-lg">
+            <div class="text-2xl font-semibold text-white mb-2">
+                Total Users
+            </div>
+            <span class="text-4xl font-bold text-green-400">{{ userCount }}</span>
+        </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
+        <div class="flex flex-col items-center justify-center w-full h-full p-6 bg-gray-950 rounded-lg shadow-lg">
+            <div class="text-2xl font-semibold text-white mb-2">
+                Total Posts
+            </div>
+            <span class="text-4xl font-bold text-green-400">{{ postsCount }}</span>
         </div>
     </mat-grid-tile>
     <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
-        <div class="h-full flex items-center justify-center">
-            <!-- Chart 2 -->
-            <div class="text-center text-white">Chart 2</div>
+        <div class="flex flex-col items-center justify-center w-full h-full p-6 bg-gray-950 rounded-lg shadow-lg">
+            <div class="text-2xl font-semibold text-white mb-2">
+                Blocked Accounts
+            </div>
+            <span class="text-4xl font-bold text-green-400">{{ blockedAccountsCount }}</span>
         </div>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 4" class="bg-black p-4 rounded-lg">
-        <div class="h-full flex items-center justify-center">
-            <!-- Chart 3 -->
-            <div class="text-center text-white">Chart 3</div>
-        </div>
-    </mat-grid-tile>
-
-<!--    <mat-grid-tile [colspan]="isSmallScreen ? 1 : 7" [rowspan]="isSmallScreen ? 1 : 2" class="bg-black rounded-lg">-->
-<!--        <div class="h-full flex items-center justify-center">-->
-<!--            &lt;!&ndash; Chart 4 &ndash;&gt;-->
-<!--            <div class="text-center text-white">Chart 4</div>-->
-<!--            <div class="lg:w-9/12 sm:w-1/12" #chartContainer></div>-->
-
-<!--        </div>-->
-<!--    </mat-grid-tile>-->
 
     <mat-grid-tile [colspan]="isSmallScreen ? 1 : 7" [rowspan]="isSmallScreen ? 1 : 2" class="bg-black rounded-lg">
-        <div class="h-full flex items-center justify-center">
+        <div class="h-full w-fit flex items-center justify-center">
             <div class="flex">
                 <histogram/>
             </div>
@@ -43,7 +41,7 @@
         <div class="h-full flex flex-col items-center justify-center">
             <h3 class="text-white text-lg font-bold mb-4">Daily Performance</h3>
             <div class="flex">
-                <pie-chart class="w-48 h-48"/>
+                <pie-chart class="w-full h-fit"/>
             </div>
         </div>
     </mat-grid-tile>

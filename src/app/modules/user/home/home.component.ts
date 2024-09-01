@@ -34,8 +34,7 @@ import {BehaviorSubject, Observable} from "rxjs";
                     <div [ngClass]="{
                 'col-span-3 lg:col-span-2 border-x-[1px] border-gray-500': (showFollowBar | async),
                 'col-span-3 lg:col-span-3 border-l-[1px] border-gray-500': !(showFollowBar | async)
-                }"
-                    >
+                }">
                         <app-header></app-header>
                         <router-outlet></router-outlet>
                     </div>

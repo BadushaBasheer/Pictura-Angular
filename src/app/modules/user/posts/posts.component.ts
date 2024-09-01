@@ -47,30 +47,77 @@ export class PostsComponent implements OnInit {
     // }
 
 
+    // likePost(postId: number): void {
+    //     const userId = StorageService.getUserId();
+    //     if (userId) {
+    //         this.postService.likePostById(postId, userId).subscribe({
+    //             next: (updatedPost: Posts) => {
+    //                 console.log("came herer........")
+    //                 const index = this.posts.findIndex(post => post.id === postId);
+    //                 if (index !== -1) {
+    //                     this.posts[index] = updatedPost;
+    //                     this.isLiked = this.isPostLikedByUser(userId);
+    //                     console.log("Button clicked",this.isLiked )
+    //                 }
+    //             },
+    //             error: (error) => {
+    //                 console.error('Error liking post:', error);
+    //             }
+    //         });
+    //     } else {
+    //         console.error('User is not logged in or user ID is not available');
+    //     }
+    // }
+    //
+    // isPostLikedByUser(post: Posts): boolean {
+    //     const userId = StorageService.getUserId();
+    //     return Array.isArray(post.liked) && post.liked.some(user => user.id === userId);
+    // }
+
+    // likePost(postId: number): void {
+    //     this.postService.likePostById(postId).subscribe({
+    //         next: (updatedPost: Posts) => {
+    //             const index = this.posts.findIndex(post => post.id === postId);
+    //             if (index !== -1) {
+    //                 this.posts[index] = updatedPost;
+    //                 this.isLiked = this.isPostLikedByUser(updatedPost);
+    //                 console.log("Post liked status updated:", this.isLiked);
+    //             }
+    //         },
+    //         error: (error) => {
+    //             console.error('Error liking post:', error);
+    //         }
+    //     });
+    // }
+    //
+    // isPostLikedByUser(post: Posts): boolean {
+    //     const userId = StorageService.getUserId(); // Local check to verify if the post is liked
+    //     return Array.isArray(post.liked) && post.liked.some(user => user.id === userId);
+    // }
+
     likePost(postId: number): void {
-        const userId = StorageService.getUserId();
-        if (userId) {
-            this.postService.likePostById(postId, userId).subscribe({
-                next: (updatedPost: Posts) => {
-                    const index = this.posts.findIndex(post => post.id === postId);
-                    if (index !== -1) {
-                        this.posts[index] = updatedPost;
-                        this.isLiked = this.isPostLikedByUser(userId);
-                    }
-                },
-                error: (error) => {
-                    console.error('Error liking post:', error);
+        this.postService.likePostById(postId).subscribe({
+            next: (updatedPost: Posts) => {
+                const index = this.posts.findIndex(post => post.id === postId);
+                if (index !== -1) {
+                    this.posts[index] = updatedPost;
+                    this.isLiked = this.isPostLikedByUser(updatedPost);
+                    this.cdr.detectChanges();
+                    console.log("Post updated:", updatedPost);
                 }
-            });
-        } else {
-            console.error('User is not logged in or user ID is not available');
-        }
+            },
+            error: (error) => {
+                console.error('Error liking post:', error);
+            }
+        });
     }
 
     isPostLikedByUser(post: Posts): boolean {
         const userId = StorageService.getUserId();
-        return post.liked.includes(userId);
+        return Array.isArray(post.liked) && post.liked.some(user => user.id === userId);
     }
+
+
 
     onDeletePost(postId: number): void {
         const userId = StorageService.getUserId();
@@ -123,11 +170,12 @@ export class PostsComponent implements OnInit {
         if (this.isBookmarked) {
             this.savePost(postId);
         } else {
-            this.snackBar.open("Post unbookmarked", "Close", { duration: 5000 });
+            this.snackBar.open("Unsaved", "Close", { duration: 5000 });
         }
     }
 
     savePost(postId: number) {
+        console.log("Post id is:", postId)
         this.postService.savePostById(postId).pipe(
             catchError(error => {
                 this.snackBar.open("Error saving post", "Close", { duration: 5000 });
@@ -137,6 +185,21 @@ export class PostsComponent implements OnInit {
         ).subscribe(response => {
             if (response) {
                 this.snackBar.open("Post saved successfully", "Close", { duration: 5000 });
+                console.log(response);
+            }
+        });
+    }
+
+    reportUser(id: number) {
+        this.userService.blockUser(id).pipe(
+            catchError((error) => {
+                console.error('Error blocking user:', error);
+                this.snackBar.open("Failed to block user. Please try again.", "close", { duration: 5000 });
+                return of(null);
+            })
+        ).subscribe((response) => {
+            if (response) {
+                this.snackBar.open("User blocked successfully", "close", { duration: 5000 });
                 console.log(response);
             }
         });

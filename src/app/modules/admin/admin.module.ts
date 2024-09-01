@@ -17,6 +17,7 @@ import {StorageService} from "../../auth/components/services/storage/storage.ser
 import {MatGridListModule} from "@angular/material/grid-list";
 import { PieComponent } from './shared/dashboard/components/charts/pie.component';
 import { HistogramComponent } from './shared/dashboard/components/charts/histogram.component';
+import { UserReportsComponent } from './shared/reports/user-reports.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { HistogramComponent } from './shared/dashboard/components/charts/histogr
         UsersComponent,
         LayoutComponent,
         PieComponent,
-        HistogramComponent
+        HistogramComponent,
+        UserReportsComponent
     ],
     imports: [
         CommonModule,

@@ -17,7 +17,7 @@
             <p class="text-md text-neutral-500">{{ email }}</p>
         </div>
         <div class="flex flex-col mt-4">
-            <p class="text-white">{{bio}}</p>
+            <p class="text-white">{{ bio }}</p>
         </div>
         <div class="flex flex-row items-center mt-4 gap-6">
             <div class="flex flex-row item-center gap-1" (click)="showFollowing()">
@@ -30,5 +30,14 @@
             </div>
         </div>
     </div>
+    <div>
+        <mat-slide-toggle
+            [formControl]="privacyToggle"
+            (change)="onToggleChange($event.checked)">
+            Set Account to Private
+        </mat-slide-toggle>
+    </div>
+    <p>Your account is currently: <strong>{{ accountStatus }}</strong></p>
+
 </div>
 <user-post-listing/>

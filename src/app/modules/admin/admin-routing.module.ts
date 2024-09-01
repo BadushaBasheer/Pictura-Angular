@@ -4,6 +4,7 @@ import {DashboardComponent} from "./shared/dashboard/dashboard.component";
 import {UsersComponent} from "./shared/users/users.component";
 import {SidebarComponent} from "./shared/sidebar/sidebar.component";
 import {roleGuard} from "../../auth/components/services/guard/role.guard";
+import {UserReportsComponent} from "./shared/reports/user-reports.component";
 
 const routes: Routes = [
     {
@@ -14,6 +15,7 @@ const routes: Routes = [
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {path: 'dashboard', component: DashboardComponent},
             {path: 'users', component: UsersComponent},
+            {path: 'reports', component: UserReportsComponent},
         ]
     },
     {path: '', redirectTo: 'admin/dashboard', pathMatch: 'full'},
