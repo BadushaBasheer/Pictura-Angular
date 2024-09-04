@@ -62,8 +62,22 @@ export class AuthService {
 
 
 
+    // refreshToken(): Observable<AuthResponse> {
+    //     const refreshToken = StorageService.getToken(); // Use StorageService
+    //     const body: RefreshResponse = { refreshToken: refreshToken };
+    //
+    //     return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, body).pipe(
+    //         tap((response: AuthResponse) => {
+    //             console.log("Access token", response.accessToken);
+    //             console.log("Refresh token", response.refreshToken);
+    //             StorageService.saveToken(response.accessToken); // Use StorageService
+    //             StorageService.saveToken(response.refreshToken); // Update this if needed
+    //         })
+    //     );
+    // }
+
     refreshToken(): Observable<AuthResponse> {
-        const refreshToken = StorageService.getToken(); // Use StorageService
+        const refreshToken = StorageService.getRefreshToken(); // Use StorageService
         const body: RefreshResponse = { refreshToken: refreshToken };
 
         return this.http.post<AuthResponse>(`${this.apiUrl}/refresh`, body).pipe(
@@ -71,7 +85,7 @@ export class AuthService {
                 console.log("Access token", response.accessToken);
                 console.log("Refresh token", response.refreshToken);
                 StorageService.saveToken(response.accessToken); // Use StorageService
-                StorageService.saveToken(response.refreshToken); // Update this if needed
+                StorageService.saveRefreshToken(response.refreshToken); // Update this if needed
             })
         );
     }

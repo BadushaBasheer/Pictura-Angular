@@ -16,10 +16,16 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #editMenu="matMenu" xPosition="before">
-                    <button *ngIf="post.user.id === loggedInUserId" mat-menu-item (click)="openDialog(deleteConfirmTemplate)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Delete</span>
-                    </button>
+                   <div *ngIf="post.user.id === loggedInUserId">
+                       <button mat-menu-item (click)="openDialog(deleteConfirmTemplate)">
+                           <mat-icon>delete_forever</mat-icon>
+                           <span>Delete</span>
+                       </button>
+                       <button mat-menu-item (click)="openEditDialog(post.id)">
+                           <mat-icon>edit</mat-icon>
+                           <span>Edit</span>
+                       </button>
+                   </div>
                     <button *ngIf="post.user.id !== loggedInUserId" mat-menu-item (click)="reportUser(post.user.id)">
                         <mat-icon>flag</mat-icon>
                         <span>Block</span>

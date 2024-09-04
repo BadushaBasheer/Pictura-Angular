@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {SideBarItems} from "../../../user/services/interface";
 import {AuthService} from "../../../../auth/components/services/auth/auth.service";
+import {SideBarItems} from "../../services/interfaces/SideBarItems";
 
 @Component({
   selector: 'sidebar',

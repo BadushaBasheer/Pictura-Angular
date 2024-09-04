@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {NavigationStart, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthService} from "../../../auth/components/services/auth/auth.service";
+import {AuthService} from "../../../../auth/components/services/auth/auth.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({

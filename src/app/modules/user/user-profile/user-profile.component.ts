@@ -14,54 +14,21 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class UserProfileComponent implements OnInit {
 
-    isFollowed: boolean = false;
-    followingCount?: number;
-    followersCount?: number;
-    userName: String | undefined;
-    email: String | undefined;
     profileImage: String = '';
     backgroundImage: String = '';
-    isUser: boolean = true;
+    userName: String | undefined;
+    email: String | undefined;
     bio: String | undefined;
+    followingCount?: number;
+    followersCount?: number;
 
-    privacyToggle = new FormControl(false); // Default is public (false)
-    accountStatus: string = 'Public';
 
-    onToggleChange(isPrivate: boolean): void {
-        this.accountStatus = isPrivate ? 'Private' : 'Public';
-        this.updateAccountPrivacy(isPrivate);
-    }
-
-    updateAccountPrivacy(isPrivate: boolean): void {
-        // This function should contain the logic to send the updated privacy
-        // status to the backend via a service call.
-        console.log('Account privacy updated:', isPrivate ? 'Private' : 'Public');
-        // Example: call a service to update user settings
-        // this.userService.updatePrivacy(isPrivate).subscribe(response => {
-        //   // handle response
-        // });
-    }
-
-    constructor(private dialog: MatDialog,
-                private userService: UserService,
-                private formBuilder: FormBuilder
-              ) {
+    constructor(private dialog: MatDialog, private userService: UserService) {
     }
 
     ngOnInit(): void {
         this.getCurrentUserProfileInfo();
-
-
     }
-
-    toggleFollow(): void {
-        if (StorageService.isUserLoggedIn()) {
-            this.isUser = true;  // If user is logged in, they should see "Edit Profile" button.
-        } else {
-            this.isFollowed = !this.isFollowed;  // Only toggle follow status if it's not the user's profile.
-        }
-    }
-
 
     edit() {
         const modal = this.dialog.open(EditUserComponent)
@@ -82,7 +49,6 @@ export class UserProfileComponent implements OnInit {
             this.followersCount = data.followers ? data.followers.length : 0;
         });
     }
-
 
     showFollowers() {
 

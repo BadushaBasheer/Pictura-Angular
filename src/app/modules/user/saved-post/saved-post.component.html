@@ -2,7 +2,7 @@
     <mat-grid-list class="mb-10" cols="3" rowHeight="3:3" gutterSize="8px" *ngIf="posts.length > 0; else noPostsTemplate">
         <mat-grid-tile *ngFor="let post of posts" class="bg-gray-200 rounded hover:cursor-pointer"
                        (click)="openPostDetail(post)">
-            <img [src]="post.image.url" alt="User uploaded image" class="user-image">
+            <img [src]="post.image.fileName" alt="User uploaded image" class="user-image">
         </mat-grid-tile>
     </mat-grid-list>
 

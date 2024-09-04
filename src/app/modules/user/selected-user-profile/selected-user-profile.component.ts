@@ -1,86 +1,64 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Users} from "../services/interface/Users";
-import {UserService} from "../services/controller/user.service";
-import {tap} from "rxjs/operators";
-import {SharedService} from "../services/shared-service/shared.service";
-import {ActivatedRoute} from "@angular/router";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-selected-user-profile',
-  templateUrl: './selected-user-profile.component.html'
+    selector: 'selected-user-profile',
+    template: `
+        <div class="container mx-auto max-w-screen-lg p-4">
+            <div class="bg-neutral-800 h-20 relative rounded-t-lg  shadow-lg">
+                <div class="absolute bottom-0 left-6 transform translate-y-1/2">
+                    <div class="w-32 h-32 rounded-full border-4 border-blue-500 overflow-hidden shadow-lg">
+                        <img [src]="user.profilePic" alt="User Profile Picture" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-950 rounded-b-lg shadow-lg border-t border-neutral-700 p-6">
+                <div class="text-center mt-16">
+                    <div class="flex flex-col items-center">
+                        <p class="text-white text-3xl font-bold">{{ user.name }}</p>
+                        <p class="text-md text-neutral-500">{{ user.email }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-white text-sm">{{ user.bio }}</p>
+                    </div>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <button
+                            [ngClass]="{'bg-blue-500 hover:bg-blue-600': !isConnected,'bg-green-500 hover:bg-green-600': isConnected}"
+                            class="text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            (click)="toggleConnection()">
+                            {{ isConnected ? 'Connected' : 'Connect' }}
+                        </button>
+                        <!--                <button class="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg">-->
+                        <!--                    Message-->
+                        <!--                </button>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `
 })
-export class SelectedUserProfileComponent implements OnInit{
+export class SelectedUserProfileComponent implements OnInit {
 
-    // selectedUser: Users | null = null;
-    //
-    // userService = inject(UserService)
-    //
-    // ngOnInit() {
-    //     this.userService.OnUserDetailsClicked.subscribe((data: Users)=>{
-    //         this.selectedUser = data;
-    //         console.log("Response", data)
-    //     })
-    // }
-    //
+    user: Users;
 
-    userId: number | null = null;
-    user: any = null;
+    isConnected: boolean = false;
 
-    constructor(private route: ActivatedRoute, private userService: UserService) {}
-
-    ngOnInit(): void {
-        this.route.paramMap.subscribe(params => {
-            this.userId = Number(params.get('userId'));
-            console.log(this.userId)
-            if (this.userId) {
-                this.userService.getUserById(this.userId).subscribe(user => {
-                    this.user = user;
-                });
-            }
-        });
+    constructor(public dialogRef: MatDialogRef<SelectedUserProfileComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: Users) {
+        this.user = data;
     }
 
-    // constructor(private sharedService: SharedService,
-    //             private userService: UserService) { }
+    ngOnInit(): void {
+    }
 
+    closeDialog(): void {
+        this.dialogRef.close();
+    }
 
-
-    // ngOnInit(): void {
-    //     this.selectedUser = this.sharedService.getSelectedUser();
-    //     console.log('Selected user details:', this.selectedUser);
-    // }
-        // const userId = this.sharedService.getSelectedUser();
-        // console.log("This is from my selected user",userId)
-        // this.sharedService.selectedUser.subscribe({
-        //     next: user => {
-        //         if (user) {
-        //             console.log('Received user:', user);
-        //             console.log('User ID:', user.id);
-        //             this.selectedUser = user;
-        //             this.loadSelectedUserDetails(user.id);
-        //         }
-        //     },
-        //     error: err => {
-        //         console.error('Error subscribing to user details', err);
-        //     }
-        // });
-
-    // }
-
-
-    // loadSelectedUserDetails(userId: number) {
-    //     console.log(`Loading details for user ID: ${userId}`);
-    //     this.userService.getUserById(userId).pipe(
-    //         tap(response => {
-    //             console.log('User details response:', response);
-    //         })
-    //     ).subscribe({
-    //         error: err => {
-    //             console.error('Error loading user details', err);
-    //         }
-    //     });
-    // }
-
-
+    toggleConnection() {
+        this.isConnected = !this.isConnected;
+    }
 
 }

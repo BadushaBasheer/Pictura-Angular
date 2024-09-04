@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
@@ -29,8 +29,7 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
                 </button>
             </div>
         </div>
-
-    `
+    `,
 })
 export class ViewPostComponent implements OnInit {
 

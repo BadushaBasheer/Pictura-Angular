@@ -52,13 +52,13 @@ export class AddPostComponent {
                     this.snackBar.open("An error occurred while uploading the image", 'Close', { duration: 5000 });
                 },
                 complete: () => {
-                    this.loading = false; // Hide spinner after operation is complete
+                    this.loading = false;
                 }
             });
         } else {
             console.error('Cropped image or caption is missing');
             this.snackBar.open("Cropped image or caption is missing", 'Close', { duration: 5000 });
-            this.loading = false; // Hide spinner if there's a missing field
+            this.loading = false;
         }
     }
 

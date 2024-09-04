@@ -25,51 +25,63 @@
                             <p class="hidden lg:block text-white text-lg">{{ item.label }}</p>
                         </a>
                     </div>
-
-
-                    <!--logout button-->
-
-                    <div (click)="logoutConfirmModal()" class="flex flex-row items-center">
-                        <div
-                            class="material-icons text-white relative rounded-full h-14 w-14 flex items-center justify-center p-4 hover:bg-slate-300 hover:bg-opacity-10 cursor-pointer">
-                            logout
-                        </div>
-                        <div
-                            class="relative hidden lg:flex items-center gap-4 p-4 rounded-full hover:bg-opacity-10 hover:bg-slate-300 cursor-pointer">
-                            <p class="hidden lg:block text-white text-lg">
-                                Logout
-                            </p>
-                        </div>
-                    </div>
                 </div>
-                <div class="mt-28" *ngIf="userProfileAvailable">
-                    <div
-                        class="lg:hidden h-14 w-14 rounded-full p-4 flex items-center justify-center bg-gray-600 hover:bg-opacity-80 transition cursor-pointer">
-                        <Avatar/>
-                    </div>
-                    <!-- Posts button for large screens -->
-                    <div routerLink="profile"
-                        class="rounded-lg hidden lg:flex items-center justify-center gap-2 px-2 py-2 bg-gray-800 hover:bg-opacity-90 transition cursor-pointer">
-                        <Avatar/>
-                        <p class="text-white text-center font-light text-[15px] pt-[10px]">
-                            {{userName}}
-                        </p>
+<!--                <div class="mt-44" *ngIf="userProfileAvailable">-->
+<!--                    <div class="lg:hidden h-14 w-14 rounded-full p-4 flex items-center justify-center bg-gray-600 hover:bg-opacity-80 transition cursor-pointer">-->
+<!--                        <Avatar/>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Posts button for large screens &ndash;&gt;-->
+<!--                    <div routerLink="profile"-->
+<!--                         class="rounded-lg hidden lg:flex items-center justify-center gap-2 px-2 py-2 bg-gray-800 hover:bg-opacity-90 transition cursor-pointer">-->
+<!--                        <Avatar/>-->
+<!--                        <p class="text-white text-center font-light text-[15px] pt-[10px]">-->
+<!--                            {{userName}}-->
+<!--                        </p>-->
 <!--                        <div>-->
-<!--                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">-->
-<!--                                <mat-icon class="text-white" >more_vert</mat-icon>-->
+<!--                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu">-->
+<!--                                <mat-icon class="text-white">more_vert</mat-icon>-->
 <!--                            </button>-->
-<!--                            <mat-menu #menu="matMenu" yPosition="above">-->
-<!--                                <button mat-menu-item>-->
-<!--                                    <mat-icon>dialpad</mat-icon>-->
-<!--                                    <span>Redial</span>-->
+<!--                            <mat-menu #menu="matMenu" yPosition="above" xPosition="before">-->
+<!--                                <button-->
+<!--                                    mat-menu-item-->
+<!--                                    *ngFor="let item of miniSideBarItems"-->
+<!--                                    [routerLink]="item.route"-->
+<!--                                    (click)="item.label === 'Logout' ? logoutConfirmModal() : null">-->
+<!--                                    <mat-icon>{{ item.icon }}</mat-icon>-->
+<!--                                    <span>{{ item.label }}</span>-->
 <!--                                </button>-->
 <!--                            </mat-menu>-->
 <!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <div class="mt-40" *ngIf="userProfileAvailable">
+                    <div class="lg:hidden h-14 w-14 rounded-full p-2 flex items-center justify-center bg-gray-600 hover:bg-gray-500 transition cursor-pointer">
+                        <img [src]="profilePic" class="h-10 w-14 rounded-full border-2" alt="{{userName}}"/>
                     </div>
-
-
+                    <div routerLink="profile"
+                        class="hidden lg:flex items-center justify-between gap-4 p-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition cursor-pointer">
+                        <img [src]="profilePic" class="ml-5 h-10 w-10 rounded-full border-2" alt="{{userName}}"/>
+                        <p class="text-white font-medium text-sm pt-2.5">
+                            {{ userName }}
+                        </p>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu" class="focus:outline-none">
+                                <mat-icon class="text-white">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu" yPosition="above" xPosition="before">
+                                <button mat-menu-item
+                                    *ngFor="let item of miniSideBarItems"
+                                    [routerLink]="item.route"
+                                    (click)="item.label === 'Logout' ? logoutConfirmModal() : null"
+                                    class="flex items-center gap-2 px-2 py-1 hover:bg-gray-200 rounded">
+                                    <mat-icon>{{ item.icon }}</mat-icon>
+                                    <span>{{ item.label }}</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

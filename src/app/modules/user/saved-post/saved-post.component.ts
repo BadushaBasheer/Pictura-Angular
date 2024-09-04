@@ -26,6 +26,5 @@ export class SavedPostComponent  implements OnInit {
             data: post,
         });
     }
-
 }
 

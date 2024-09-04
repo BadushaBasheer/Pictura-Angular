@@ -1,0 +1,21 @@
+<div class="container pt-5 pl-2 pr-2">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="text-[1.2rem]">
+                    Account Privacy
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="flex items-center gap-4 p-2 bg-gray-900 rounded-lg shadow-md">
+                <span class="text-white font-light text-lg">Private Account:</span>
+                <mat-slide-toggle
+                    [(ngModel)]="isPrivate"
+                    (change)="togglePrivacy()"
+                    class="ml-auto">
+                </mat-slide-toggle>
+                <span class="text-white">{{ isPrivate ? 'Private' : 'Public' }}</span>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+</div>

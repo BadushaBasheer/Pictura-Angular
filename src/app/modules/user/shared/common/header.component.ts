@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit(): void {
-        // Subscribe to router events to get route data
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
         ).subscribe(() => {

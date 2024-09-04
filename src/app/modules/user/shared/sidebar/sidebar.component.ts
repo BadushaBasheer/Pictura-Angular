@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {SideBarItems} from "../../services/interface";
 import {AuthService} from "../../../../auth/components/services/auth/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {Users} from "../../services/interface/Users";
 import {UserService} from "../../services/controller/user.service";
-import {LogoutComponent} from "../logout.component";
+import {LogoutComponent} from "../common/logout.component";
 import {StorageService} from "../../../../auth/components/services/storage/storage.service";
+import {MiniSideBarItems} from "../../services/interface/MiniSideBarItems";
+import {SideBarItems} from "../../services/interface/SideBarItems";
 
 @Component({
     selector: 'app-sidebar',
@@ -13,13 +14,15 @@ import {StorageService} from "../../../../auth/components/services/storage/stora
 })
 export class SidebarComponent implements OnInit {
 
-    userName: string | undefined;
+    profilePic!: string;
+    userName!: string;
 
     userProfileAvailable: boolean = false;
 
 
     ngOnInit(): void {
         this.userService.getAuthenticatedUser().subscribe((data: Users) => {
+            this.profilePic = data.profilePic;
             this.userName = data.name;
             this.userProfileAvailable = !!data;
 
@@ -55,6 +58,20 @@ export class SidebarComponent implements OnInit {
             icon: 'bookmark_border'
         }
 
+    ]
+
+    miniSideBarItems: Array<MiniSideBarItems> =[
+        {
+            label: 'Setting',
+            route: 'settings',
+            icon: 'settings',
+        },
+        {
+            label: 'Logout',
+            route: '/logout',
+            icon: 'logout',
+
+        },
     ]
 
     constructor(

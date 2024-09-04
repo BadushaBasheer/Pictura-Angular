@@ -4,8 +4,3 @@ export interface SideBarItems{
     icon?: string;
     isActive?: boolean;
 }
-
-export interface ApiResponse {
-    message: string;
-    success: boolean;
-}

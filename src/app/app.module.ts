@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -14,13 +14,15 @@ import {OtpComponent} from './auth/components/auth/otp/otp.component';
 import {CodeInputModule} from "angular-code-input";
 import {GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 import {AdminInterceptor} from "./modules/admin/services/admin-auth-interceptor.service";
+import {MatIconModule} from "@angular/material/icon";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         RegisterComponent,
-        OtpComponent,
+        OtpComponent
     ],
     imports: [
         BrowserModule,
@@ -32,6 +34,8 @@ import {AdminInterceptor} from "./modules/admin/services/admin-auth-interceptor.
         DemoAngularMaterialModule,
         FontAwesomeModule,
         CodeInputModule,
+        MatIconModule,
+        CommonModule,
         GoogleSigninButtonModule
     ],
     providers: [
@@ -53,6 +57,7 @@ import {AdminInterceptor} from "./modules/admin/services/admin-auth-interceptor.
             } as SocialAuthServiceConfig
         }
     ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -30,14 +30,5 @@
             </div>
         </div>
     </div>
-    <div>
-        <mat-slide-toggle
-            [formControl]="privacyToggle"
-            (change)="onToggleChange($event.checked)">
-            Set Account to Private
-        </mat-slide-toggle>
-    </div>
-    <p>Your account is currently: <strong>{{ accountStatus }}</strong></p>
-
 </div>
 <user-post-listing/>

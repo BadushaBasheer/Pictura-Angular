@@ -4,8 +4,9 @@ import {PostService} from "../services/controller/post.service";
 import {StorageService} from "../../../auth/components/services/storage/storage.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {catchError, of, Subject, takeUntil} from "rxjs";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {UserService} from "../services/controller/user.service";
+import {EditPostComponent} from "../edit-post/edit-post.component";
 
 @Component({
     selector: 'app-posts',
@@ -170,12 +171,11 @@ export class PostsComponent implements OnInit {
         if (this.isBookmarked) {
             this.savePost(postId);
         } else {
-            this.snackBar.open("Unsaved", "Close", { duration: 5000 });
+            this.snackBar.open("Post Unsaved", "Close", { duration: 5000 });
         }
     }
 
     savePost(postId: number) {
-        console.log("Post id is:", postId)
         this.postService.savePostById(postId).pipe(
             catchError(error => {
                 this.snackBar.open("Error saving post", "Close", { duration: 5000 });
@@ -189,6 +189,8 @@ export class PostsComponent implements OnInit {
             }
         });
     }
+
+
 
     reportUser(id: number) {
         this.userService.blockUser(id).pipe(
@@ -205,4 +207,15 @@ export class PostsComponent implements OnInit {
         });
     }
 
+    openEditDialog(postId: number) {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+            postId: postId
+        };
+        const dialogRef = this.dialog.open(EditPostComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log("Result", result)
+        });
+    }
 }
