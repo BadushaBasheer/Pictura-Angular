@@ -11,6 +11,7 @@
                 <mat-slide-toggle
                     [(ngModel)]="isPrivate"
                     (change)="togglePrivacy()"
+                    (click)="accountTypeFetch()"
                     class="ml-auto">
                 </mat-slide-toggle>
                 <span class="text-white">{{ isPrivate ? 'Private' : 'Public' }}</span>

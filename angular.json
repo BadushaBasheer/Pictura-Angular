@@ -21,6 +21,11 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
+                        "allowedCommonJsDependencies": [
+                            "sockjs-client",
+                            "stompjs",
+                            "sdp"
+                        ],
                         "outputPath": "dist/final-social-media",
                         "index": "src/index.html",
                         "main": "src/main.ts",

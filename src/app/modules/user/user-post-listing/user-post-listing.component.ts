@@ -23,6 +23,7 @@ export class UserPostListingComponent implements OnInit {
 
     openPostDetail(post: any) {
         this.dialog.open(ViewPostComponent,{
+            width:"600px",
             data: post,
         });
     }

@@ -31,7 +31,9 @@ export class UserProfileComponent implements OnInit {
     }
 
     edit() {
-        const modal = this.dialog.open(EditUserComponent)
+        const modal = this.dialog.open(EditUserComponent,{
+            width: '1000px',
+        })
         modal.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
         });

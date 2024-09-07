@@ -15,7 +15,7 @@ export interface Image {
     fileName: string;
     fileType: string;
     url: string;
-    publicId: string; // Cloudinary public ID
+    publicId: string;
 }
 
 

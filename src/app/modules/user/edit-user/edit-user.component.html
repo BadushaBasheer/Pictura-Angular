@@ -1,61 +1,59 @@
-<!--ORIGINAL-->
-<div class="xl:w-[40rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-6 border-2 border-gray-200 rounded-xl shadow-lg bg-white dark:bg-gray-800">
-    <div class="lg:w-[40rem] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-xl p-6 rounded-xl h-fit self-center dark:bg-gray-900">
-        <div class="text-center mb-6">
-            <h1 class="text-4xl font-extrabold mb-4 dark:text-white">Profile</h1>
-            <form>
+<div class="container">
+    <div class="xl:w-[55rem] lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto border-2 border-gray-200 rounded-xl shadow-lg bg-white dark:bg-gray-800">
+        <h2 class="mt-5 flex text-center justify-center lg:text-left text-lg font-semibold dark:text-gray-300">Upload Profile</h2>
+        <div class="lg:flex lg:gap-6 p-6 rounded-xl dark:bg-gray-900">
+            <!-- Left Section: Profile and Cover Image Upload -->
+            <div class="lg:w-1/2 flex flex-col gap-4 items-center">
                 <div class="relative flex flex-col items-center gap-4 bg-gray-100 p-4 rounded-xl dark:bg-gray-700">
                     <!-- Profile Image -->
-                    <div class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">
-                        <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full object-cover" alt="Profile Image">
-                        <input type="file" name="profile" id="upload_profile" (change)="onFileSelected($event, 'profile')" hidden>
-                        <label for="upload_profile" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">
+                    <div
+                        class="relative flex justify-center items-center w-36 h-36 bg-blue-300 rounded-full overflow-hidden">
+                        <img *ngIf="user.profilePic" [src]="user.profilePic" class="w-full h-full object-cover"
+                             alt="Profile Image">
+                        <input type="file" name="profile" id="upload_profile"
+                               (change)="onFileSelected($event, 'profile')" hidden>
+                        <label for="upload_profile"
+                               class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-full">
                             <mat-icon class="text-white">camera_alt</mat-icon>
                         </label>
                     </div>
-                    <div class="relative w-full mt-4">
+                    <div class="relative flex justify-center items-center w-full h-60 bg-blue-300 rounded-lg overflow-hidden">
+                        <img *ngIf="user.backgroundImage" [src]="user.backgroundImage" class="w-full h-full object-cover" alt="Cover Image">
                         <input type="file" name="cover" id="upload_cover" (change)="onFileSelected($event, 'cover')" hidden>
-                        <label for="upload_cover" class="flex items-center justify-center gap-2 cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-700">
-                            <span>Cover</span>
-                            <mat-icon>camera_alt</mat-icon>
+                        <label for="upload_cover" class="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-40 hover:bg-opacity-60 cursor-pointer rounded-lg">
+                            <span class="text-white">Upload Cover</span>
+                            <mat-icon class="text-white">camera_alt</mat-icon>
                         </label>
-                        <img *ngIf="user.backgroundImage" [src]="user.backgroundImage" class="w-full mt-4 rounded-lg object-cover" alt="Cover Image">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Section: User Name and Bio -->
+            <div class="lg:w-1/2 mt-6 lg:mt-0 space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium dark:text-gray-300">User Name</label>
+                    <input type="text" name="username" id="username" [(ngModel)]="user.name"
+                           class="mt-2 w-full border-2 border-gray-300 rounded-lg p-2 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200 dark:focus:ring-blue-500"
+                           placeholder="User Name">
+                </div>
+                <div>
+                <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"
+                          (ngModelChange)="onBioChange()"
+                          class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"
+                          placeholder="Write your bio here..."></textarea>
+                    <div class="text-white">
+                        <mat-hint align="start">Don't disclose personal info :</mat-hint>
+                        <mat-hint align="end"><strong>{{ wordCount }} / {{ maxWords }}</strong></mat-hint>
                     </div>
                 </div>
-
-                <h2 class="text-center mt-6 text-lg font-semibold dark:text-gray-300">Upload Profile and Cover Image</h2>
-                <div class="mt-6 space-y-4">
-                    <div>
-                        <label for="username" class="block text-sm font-medium dark:text-gray-300">User Name</label>
-                        <input type="text" name="username" id="username" [(ngModel)]="user.name"
-                               class="mt-2 w-full border-2 border-gray-300 rounded-lg p-2 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200 dark:focus:ring-blue-500"
-                               placeholder="User Name">
-                    </div>
-                    <div>
-<!--                        <label for="message" class="block text-sm font-medium dark:text-gray-300">Bio</label>-->
-<!--                        <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"-->
-<!--                                  class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"-->
-<!--                                  placeholder="Write your bio here..."></textarea>-->
-<!--                        <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint>-->
-<!--                        <mat-hint align="end">{{user.bio.length}} / 100</mat-hint>-->
-                        <textarea id="message" name="bio" rows="3" [(ngModel)]="user.bio"
-                                  (ngModelChange)="onBioChange()"
-                                  class="mt-2 w-full p-2 border-2 border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"
-                                  placeholder="Write your bio here..."></textarea>
-                        <div class="text-white">
-                            <mat-hint align="start">Don't disclose personal info :</mat-hint>
-                            <mat-hint align="end"><strong>{{wordCount}} / {{maxWords}}</strong></mat-hint>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="flex justify-end mt-6">
+                <div class="flex justify-end mt-auto">
                     <button type="button" (click)="onSubmit()"
                             class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                         Save
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

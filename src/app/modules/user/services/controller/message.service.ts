@@ -15,27 +15,42 @@ export class MessageService {
 
     constructor(private http: HttpClient) {}
 
-    sendMessage(request: any): Observable<Message> {
+    // sendMessage(request: any): Observable<Message> {
+    //     return this.http.post<Message>(`${this.baseUrl}/create`, request);
+    // }
+    //
+    // getOrCreateChat(selectedUserId: number): Observable<number> {
+    //     return this.http.get<number>(`${this.baseUrl}/chat/getOrCreate/${selectedUserId}`);
+    // }
+    //
+    //
+    // getChatMessages(chatId: number): Observable<Message[]> {
+    //     return this.http.get<Message[]>(`${this.baseUrl}/chat/${chatId}`);
+    // }
+    //
+    // deleteMessage(messageId: number): Observable<ApiResponse> {
+    //     return this.http.delete<ApiResponse>(`${this.baseUrl}/${messageId}`);
+    // }
+    //
+    // getChatId(selectedUserId: number): Observable<number> {
+    //     return this.http.get<number>(
+    //         `${this.baseUrl}/chat/getOrCreate/${selectedUserId}`
+    //     );
+    // }
+
+    // Send a message
+    sendMessage(request: SendMessageRequest): Observable<Message> {
         return this.http.post<Message>(`${this.baseUrl}/create`, request);
     }
 
-    getOrCreateChat(selectedUserId: number): Observable<number> {
-        return this.http.get<number>(`${this.baseUrl}/chat/getOrCreate/${selectedUserId}`);
+    // Get messages for a user
+    getUserMessages(receiverId: number): Observable<Message[]> {
+        return this.http.get<Message[]>(`${this.baseUrl}/user/${receiverId}`);
     }
 
-
-    getChatMessages(chatId: number): Observable<Message[]> {
-        return this.http.get<Message[]>(`${this.baseUrl}/chat/${chatId}`);
-    }
-
+    // Delete a message
     deleteMessage(messageId: number): Observable<ApiResponse> {
         return this.http.delete<ApiResponse>(`${this.baseUrl}/${messageId}`);
-    }
-
-    getChatId(selectedUserId: number): Observable<number> {
-        return this.http.get<number>(
-            `${this.baseUrl}/chat/getOrCreate/${selectedUserId}`
-        );
     }
 
 }

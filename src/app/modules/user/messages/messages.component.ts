@@ -277,16 +277,16 @@
 //     }
 // }
 
-import { Component, OnInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+
 import { VideoCallComponent } from '../video-call/video-call.component';
 import {Users} from "../services/interface/Users";
 import {MessageService} from "../services/controller/message.service";
 import {UserService} from "../services/controller/user.service";
-import {ChatService} from "../services/websocket/web-socket.service";
+import {WebSocketService} from "../services/websocket/web-socket.service";
 import {Message} from "../services/interface/Message";
 import {SendMessageRequest} from "../services/request/SendMessageRequest";
 import {StorageService} from "../../../auth/components/services/storage/storage.service";
@@ -299,22 +299,23 @@ export class MessagesComponent implements OnInit {
     followedUsers: Users[] = [];
     message = '';
     chatMessages: Message[] = [];
-    selectedUser: any = null;
-    roomId!: string;
+    selectedUser: Users | null = null;
+    chatId!: number;
 
     constructor(
         private messageService: MessageService,
         private userService: UserService,
         private cdr: ChangeDetectorRef,
-        private chatService: ChatService,
+        private webSocketService: WebSocketService,
         private dialog: MatDialog,
     ) {}
 
     ngOnInit() {
         this.loadFollowedUsers();
+        this.listenerMessage(); // Start listening for real-time messages
     }
 
-    selectUser(user: any) {
+    selectUser(user: Users) {
         this.selectedUser = user;
         this.loadChatMessages();
         this.cdr.detectChanges();
@@ -333,52 +334,35 @@ export class MessagesComponent implements OnInit {
     }
 
     loadChatMessages() {
-        this.getChatIdForUser(this.selectedUser).subscribe(chatId => {
-            if (chatId !== undefined) {
-                this.roomId = chatId.toString(); // Store the roomId
-                this.chatService.joinRoom(this.roomId); // Join the room for real-time updates
-                this.messageService.getChatMessages(chatId).subscribe(messages => {
-                    this.chatMessages = messages.sort((a, b) => b.id - a.id);
-                });
-                this.listenerMessage(); // Start listening for real-time messages
-            } else {
-                console.log('Chat ID is undefined');
-            }
-        });
-    }
-
-    getChatIdForUser(user: any): Observable<number | undefined> {
-        return this.messageService.getChatId(user.id).pipe(
-            map(chat => chat ? chat.valueOf() : undefined)
-        );
+        if (this.selectedUser) {
+            this.messageService.getUserMessages(this.selectedUser.id).subscribe(messages => {
+                this.chatMessages = messages.sort((a, b) => b.id - a.id);
+            });
+        } else {
+            console.log('Selected user is null');
+        }
     }
 
     sendMessage(): void {
-        if (this.message.trim() === '') return;
-
-        this.chatService.getChatUpdates(this.selectedUser.id).subscribe(chatId => {
+        if (this.message.trim() === '') {
+            console.log("Message is empty, nothing to send");
+            return;
+        }
+        console.log("Message content:", this.message);
+        if (this.selectedUser) {
             const request: SendMessageRequest = {
-                chatId: chatId,
+                userId: this.selectedUser.id,
                 content: this.message
             };
-            // this.chatService.sendMessage(this.roomId, request).subscribe({
-            //     next: (message: Message) => {
-            //         this.chatMessages.push(message);
-            //         this.message = '';
-            //     },
-            //     error: (err: any) => {
-            //         console.error('Failed to send message:', err);
-            //     }
-            // });
-            this.chatService.sendMessage(this.roomId, request);
+            console.log("SendMessageRequest:", request);
+            this.webSocketService.sendMessage(request);
             this.message = '';
-        });
+        }
     }
 
     listenerMessage() {
-        this.chatService.getMessageSubject().subscribe((messages: Message[]) => {
+        this.webSocketService.getMessageObservable().subscribe((messages: Message[]) => {
             messages.forEach((msg) => {
-                // Prevent duplicate messages
                 if (!this.chatMessages.find(m => m.id === msg.id)) {
                     this.chatMessages.push(msg);
                 }
@@ -392,7 +376,7 @@ export class MessagesComponent implements OnInit {
     }
 
     userId(id: number): void {
-        this.selectedUser = id;
+        this.selectedUser = this.followedUsers.find(user => user.id === id) || null;
     }
 
     openVideoCall(selectedUser: Users) {

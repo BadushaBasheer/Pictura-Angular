@@ -46,6 +46,8 @@ export class StorageService {
         }
     }
 
+
+
     public static getUserRole(): string {
         const user = this.getUser();
         return user ? user.role : '';

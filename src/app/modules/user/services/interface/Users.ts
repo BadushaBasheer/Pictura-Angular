@@ -10,6 +10,7 @@ export interface Users {
     createdDate: string;
     modifiedDate: string | null;
     accountLocked: boolean;
+    accountType: string;
     bio: string;
     profilePic: string;
     backgroundImage: string;

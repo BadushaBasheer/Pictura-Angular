@@ -33,6 +33,7 @@ import {MessagesComponent} from "./messages/messages.component";
 import {EditPostComponent} from "./edit-post/edit-post.component";
 import {MatIconModule} from "@angular/material/icon";
 import {ImageCropperComponent} from "ngx-image-cropper";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import {ImageCropperComponent} from "ngx-image-cropper";
         FormsModule,
         MatIconModule,
         ImageCropperComponent,
-        HammerModule
+        HammerModule,
+        InfiniteScrollModule
     ],
     providers: [
         {

@@ -93,8 +93,9 @@ export class UserService {
     unblockUser(blockedId: number): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/unblock/${blockedId}`, null);
     }
-
-
+    updateUserAccountType(): Observable<string> {
+        return this.http.put<string>(`${this.apiUrl}/accountTypeChange`, {},  { responseType: 'text' as 'json' });
+    }
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
@@ -107,5 +108,6 @@ export class UserService {
     OnShowUserDetails(user: Users) {
         this.OnUserDetailsClicked.emit(user)
     }
+
 
 }

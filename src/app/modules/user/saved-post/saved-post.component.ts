@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Posts} from "../services/interface/Posts";
 import {PostService} from "../services/controller/post.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ViewPostComponent} from "../view-post/view-post.component";
+import {Posts} from "../services/interface/Posts";
 
 @Component({
   selector: 'saved-post',
@@ -18,6 +18,7 @@ export class SavedPostComponent  implements OnInit {
     ngOnInit(): void {
         this.postsService.findAllSavedPosts().subscribe(posts => {
             this.posts = posts;
+            console.log(this.posts);
         });
     }
 

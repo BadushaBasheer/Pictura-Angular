@@ -87,11 +87,28 @@ export class EditPostComponent implements OnInit {
         });
     }
 
+    // resetForm(): void {
+    //     this.imageChangedEvent = null;
+    //     this.croppedImage = '';
+    //     this.croppedBlob = null;
+    //     this.caption = '';
+    //     this.loadPostData();
+    // }
+
     resetForm(): void {
         this.imageChangedEvent = null;
         this.croppedImage = '';
         this.croppedBlob = null;
-        this.caption = '';
+        this.imageSelected = false;
         this.loadPostData();
     }
+
+    triggerFileUpload(): void {
+        const uploadInput = document.getElementById('uploadNewImage') as HTMLInputElement;
+        if (uploadInput) {
+            uploadInput.click();
+        }
+    }
+
+
 }

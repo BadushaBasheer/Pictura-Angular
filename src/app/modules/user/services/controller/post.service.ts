@@ -22,6 +22,11 @@ export class PostService {
         return this.http.get<Posts[]>(`${this.apiUrl}/savedPosts`);
     }
 
+    getAllPosts(page: number, size: number): Observable<Page<Posts>> {
+        const url = `${this.apiUrl}/getAllPosts?page=${page}&size=${size}`;
+        return this.http.get<Page<Posts>>(url);
+    }
+
     findUsersPost(userId: number): Observable<Posts[]> {
         return this.http.get<Posts[]>(`${this.apiUrl}/user/${userId}`);
     }
@@ -86,4 +91,11 @@ export class PostService {
     deletePost(postId: number): Observable<ApiResponse> {
         return this.http.delete<ApiResponse>(`${this.apiUrl}/${postId}`);
     }
+}
+export interface Page<T> {
+    content: T[];
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
 }
