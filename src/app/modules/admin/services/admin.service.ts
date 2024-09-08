@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Users } from './interfaces/users';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Users} from './interfaces/users';
 import {UserBlock} from "./interfaces/user-block";
 
 @Injectable({
@@ -11,7 +11,8 @@ export class AdminService {
 
     private apiUrl = "http://localhost:8080/admin";
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     // Get all users
     getAllUsers(): Observable<Users[]> {
@@ -21,7 +22,7 @@ export class AdminService {
     // Search for users by query
     searchUser(query: string): Observable<Users[]> {
         const params = new HttpParams().set('query', query);
-        return this.http.get<Users[]>(`${this.apiUrl}/getUser`, { params });
+        return this.http.get<Users[]>(`${this.apiUrl}/getUser`, {params});
     }
 
     // Update a user
@@ -59,16 +60,15 @@ export class AdminService {
     //     return this.http.post<{ success: boolean }>(`${this.apiUrl}/unblock/${id}`, {});
     // }
 
-    blockUserByAdmin(userId: number): Observable<Users> {
-        const url = `${this.apiUrl}/block-user/${userId}`;
-        return this.http.post<Users>(url, null);  // Send a POST request to block the user
+    blockUserByAdmin(userId: number): Observable<any> {
+        const url = `${this.apiUrl}/blockUser/${userId}`;
+        return this.http.put(url, null, {responseType: 'text'});
     }
 
-    unblockUserByAdmin(userId: number): Observable<Users> {
-        const url = `${this.apiUrl}/unblock-user/${userId}`;
-        return this.http.post<Users>(url, null);  // Send a POST request to unblock the user
+    unblockUserByAdmin(userId: number): Observable<any> {
+        const url = `${this.apiUrl}/unblockUser/${userId}`;
+        return this.http.put(url, null, {responseType: 'text'});
     }
-
 
     getBlockedUsers(userId: number): Observable<UserBlock[]> {
         return this.http.get<UserBlock[]>(`${this.apiUrl}/${userId}/blocked`);
@@ -81,6 +81,7 @@ export class AdminService {
     getAllUserBlocks(): Observable<UserBlock[]> {
         return this.http.get<UserBlock[]>(`${this.apiUrl}/all-blocks`);
     }
+
     getAllUserCount(): Observable<number> {
         return this.http.get<number>(`${this.apiUrl}/getAllUsersCount`);
     }

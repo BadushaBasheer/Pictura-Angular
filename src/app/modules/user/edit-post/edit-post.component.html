@@ -1,26 +1,13 @@
-<div class="bg-gray-900 text-white p-10 rounded-lg shadow-2xl max-w-lg mx-auto">
-    <div class="flex justify-end">
-        <button [ngClass]="croppedImage ? '' : 'hidden'" class="text-blue-600" (click)="resetForm()">Reset</button>
-    </div>
-    <div class="text-center">
-        <h2 class="text-3xl font-bold mb-6">Edit Post</h2>
-        <hr class="border-gray-700 mb-6">
-    </div>
-    <div class="bg-gray-800 p-8 rounded-lg shadow-inner">
-        <div class="flex gap-4">
-<!--            <div class="w-1/2 bg-gray-700 p-4 rounded-lg shadow-md" *ngIf="imageSelected || existingImageUrl">-->
-<!--                <image-cropper-->
-<!--                    *ngIf="imageSelected"-->
-<!--                    [imageChangedEvent]="imageChangedEvent"-->
-<!--                    [maintainAspectRatio]="true"-->
-<!--                    [aspectRatio]="4 / 4"-->
-<!--                    format="png"-->
-<!--                    (imageCropped)="imageCropped($event)">-->
-<!--                </image-cropper>-->
-<!--                <img *ngIf="!imageSelected && existingImageUrl" [src]="existingImageUrl" alt="Existing Image"-->
-<!--                     class="rounded-lg shadow-lg"/>-->
-<!--            </div>-->
-
+<!--<div class="bg-gray-900 text-white p-10 rounded-lg shadow-2xl max-w-lg mx-auto">-->
+<!--    <div class="flex justify-end">-->
+<!--        <button [ngClass]="croppedImage ? '' : 'hidden'" class="text-blue-600" (click)="resetForm()">Reset</button>-->
+<!--    </div>-->
+<!--    <div class="text-center">-->
+<!--        <h2 class="text-3xl font-bold mb-6">Edit Post</h2>-->
+<!--        <hr class="border-gray-700 mb-6">-->
+<!--    </div>-->
+<!--    <div class="bg-gray-800 p-8 rounded-lg shadow-inner">-->
+<!--        <div class="flex gap-4">-->
 <!--            <div class="w-1/2 bg-gray-700 p-4 rounded-lg shadow-md">-->
 <!--                <image-cropper-->
 <!--                    *ngIf="imageSelected"-->
@@ -32,9 +19,59 @@
 <!--                </image-cropper>-->
 <!--                <img *ngIf="!imageSelected && existingImageUrl" [src]="existingImageUrl" alt="Existing Image"-->
 <!--                     class="rounded-lg shadow-lg"/>-->
+
+<!--                &lt;!&ndash; Add this button to trigger file selection &ndash;&gt;-->
+<!--                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"-->
+<!--                        (click)="triggerFileUpload()">Change Image</button>-->
+
+<!--                <input type="file" id="uploadNewImage" hidden (change)="fileChangeEvent($event)" accept="image/*"/>-->
 <!--            </div>-->
 
-            <div class="w-1/2 bg-gray-700 p-4 rounded-lg shadow-md">
+
+<!--            <div class="spinner-container" *ngIf="loading">-->
+<!--                <mat-spinner></mat-spinner>-->
+<!--            </div>-->
+<!--            <div class="w-1/2 flex justify-center items-center">-->
+<!--                <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped Image" class="rounded-lg shadow-lg"/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; If no cropped image is available &ndash;&gt;-->
+<!--        <div [ngClass]="croppedImage || existingImageUrl ? 'hidden' : ''">-->
+<!--            <div-->
+<!--                class="mt-4 border-4 border-dashed border-gray-700 rounded-lg p-8 mb-6 flex flex-col items-center justify-center">-->
+<!--                <mat-icon class="text-gray-500 mb-4 text-7xl">perm_media</mat-icon>-->
+<!--                <p class="text-gray-400 text-lg">Select an image to upload</p>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="file" id="upload" hidden (change)="fileChangeEvent($event)" accept="image/*"/>-->
+<!--                <label for="upload"-->
+<!--                       class="block text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mb-6 cursor-pointer transition ease-in-out duration-300">-->
+<!--                    Upload Image-->
+<!--                </label>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <input type="text" [(ngModel)]="caption" placeholder="Enter a caption"-->
+<!--               class="w-full mt-6 px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>-->
+<!--        <button mat-raised-button [disabled]="!caption.trim()" (click)="updatePost()"-->
+<!--                class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition ease-in-out duration-300">-->
+<!--            Update Post-->
+<!--        </button>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<div class="bg-gray-900 text-white p-10 rounded-lg shadow-2xl max-w-lg mx-auto">
+    <div class="flex justify-end">
+        <button [ngClass]="croppedImage ? '' : 'hidden'" class="text-blue-500 hover:text-blue-400 transition duration-200 ease-in-out" (click)="resetForm()">Reset</button>
+    </div>
+    <div class="text-center">
+        <h2 class="text-4xl font-extrabold mb-6 text-blue-400">Edit Post</h2>
+        <hr class="border-gray-700 mb-6">
+    </div>
+    <div class="bg-gray-800 p-8 rounded-lg shadow-inner">
+        <div class="flex gap-4 flex-col md:flex-row">
+            <div class="md:w-1/2 bg-gray-700 p-4 rounded-lg shadow-md flex flex-col items-center">
                 <image-cropper
                     *ngIf="imageSelected"
                     [imageChangedEvent]="imageChangedEvent"
@@ -44,50 +81,42 @@
                     (imageCropped)="imageCropped($event)">
                 </image-cropper>
                 <img *ngIf="!imageSelected && existingImageUrl" [src]="existingImageUrl" alt="Existing Image"
-                     class="rounded-lg shadow-lg"/>
+                     class="rounded-lg shadow-lg w-full object-cover"/>
 
-                <!-- Add this button to trigger file selection -->
-                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+                <button class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 ease-in-out"
                         (click)="triggerFileUpload()">Change Image</button>
 
                 <input type="file" id="uploadNewImage" hidden (change)="fileChangeEvent($event)" accept="image/*"/>
             </div>
 
-
             <div class="spinner-container" *ngIf="loading">
                 <mat-spinner></mat-spinner>
             </div>
-            <div class="w-1/2 flex justify-center items-center">
-                <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped Image" class="rounded-lg shadow-lg"/>
+            <div class="md:w-1/2 flex justify-center items-center">
+                <img *ngIf="croppedImage" [src]="croppedImage" alt="Cropped Image" class="rounded-lg shadow-lg w-full object-cover"/>
             </div>
         </div>
+
         <!-- If no cropped image is available -->
-        <div [ngClass]="croppedImage || existingImageUrl ? 'hidden' : ''">
-            <div
-                class="mt-4 border-4 border-dashed border-gray-700 rounded-lg p-8 mb-6 flex flex-col items-center justify-center">
+        <div [ngClass]="croppedImage || existingImageUrl ? 'hidden' : ''" class="flex justify-center items-center mt-4">
+            <div class="border-4 border-dashed border-gray-700 rounded-lg p-8 mb-6 flex flex-col items-center justify-center">
                 <mat-icon class="text-gray-500 mb-4 text-7xl">perm_media</mat-icon>
                 <p class="text-gray-400 text-lg">Select an image to upload</p>
             </div>
             <div>
                 <input type="file" id="upload" hidden (change)="fileChangeEvent($event)" accept="image/*"/>
                 <label for="upload"
-                       class="block text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 mb-6 cursor-pointer transition ease-in-out duration-300">
+                       class="block text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-3 cursor-pointer transition duration-300">
                     Upload Image
                 </label>
             </div>
         </div>
 
         <input type="text" [(ngModel)]="caption" placeholder="Enter a caption"
-               class="w-full mt-6 px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
-<!--        <button mat-raised-button [disabled]="!croppedImage && !existingImageUrl" (click)="updatePost()"-->
-<!--                class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition ease-in-out duration-300">-->
-<!--            Update Post-->
-<!--        </button>-->
-
+               class="w-full mt-6 px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 transition duration-200 ease-in-out"/>
         <button mat-raised-button [disabled]="!caption.trim()" (click)="updatePost()"
-                class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition ease-in-out duration-300">
+                class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition duration-300">
             Update Post
         </button>
-
     </div>
 </div>

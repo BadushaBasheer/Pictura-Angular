@@ -6,6 +6,7 @@ export interface Users {
     modifiedDate: Date | null;
     accountLocked: boolean;
     enabled: boolean;
-    is_blocked_by_admin: boolean;
+    isBlockedByAdmin: boolean;
+    isBlocked?: boolean;
 }
 

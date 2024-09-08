@@ -179,7 +179,14 @@ export class PostsComponent implements OnInit {
     hasMorePosts: boolean = true;
     isBookmarked: boolean = false;
     isLoading: boolean = false;
+    newComment: string = '';
+    comments: boolean = false;
+    replyText: { [key: number]: string } = {};
     loggedInUserId = StorageService.getUserId();
+
+    backgroundColor:string = 'rgb(17 24 39)';
+    color: string = 'white';
+
 
     constructor(
         private postService: PostService,
@@ -197,6 +204,7 @@ export class PostsComponent implements OnInit {
         if (!this.hasMorePosts || this.isLoading) return;
 
         this.isLoading = true;
+        this.cdr.detectChanges();
         this.postService.getAllPosts(this.page, this.limit).subscribe({
             next: (response) => {
                 console.log('API Response:', response);  // Log the response
@@ -215,13 +223,19 @@ export class PostsComponent implements OnInit {
             error: (error) => {
                 console.error('Error fetching posts:', error);
                 this.isLoading = false;
+                this.cdr.detectChanges();
             }
         });
     }
 
     onScroll(): void {
-        this.fetchPosts();
+        console.log('Scroll event detected');
+        if (!this.isLoading && this.hasMorePosts) {
+            console.log('Loading more posts...');
+            this.fetchPosts();
+        }
     }
+
 
     likePost(postId: number): void {
         this.postService.likePostById(postId).subscribe({
@@ -326,6 +340,43 @@ export class PostsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log("Result", result)
         });
+    }
+
+
+    addComment(post: any) {
+        if (this.newComment.trim()) {
+            this.postService.commentOnPost(post.id, this.newComment).subscribe({
+                next: (updatedPost: Posts) => {
+                    post.comments = updatedPost.comments; // Update the post's comments
+                    this.newComment = ''; // Clear the text area
+                    this.cdr.detectChanges();
+                },
+                error: (error) => {
+                    console.error('Error adding comment:', error);
+                    this.snackBar.open("Error adding comment", "Close", { duration: 5000 });
+                }
+            });
+        }
+    }
+
+    replyToComment(post: any, commentId: number) {
+        const reply = this.replyText[commentId];
+        if (reply.trim()) {
+            this.postService.replyToComment(commentId, reply).subscribe({
+                next: (updatedComment: Comment) => {
+                    const comment = post.comments.find((c: { id: number; }) => c.id === commentId);
+                    if (comment) {
+                        comment.replies = [...(comment.replies || []), updatedComment];
+                        this.replyText[commentId] = ''; // Clear the reply input
+                        this.cdr.detectChanges();
+                    }
+                },
+                error: (error) => {
+                    console.error('Error replying to comment:', error);
+                    this.snackBar.open("Error replying to comment", "Close", { duration: 5000 });
+                }
+            });
+        }
     }
 }
 

@@ -93,6 +93,7 @@ export class UserService {
     unblockUser(blockedId: number): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}/unblock/${blockedId}`, null);
     }
+
     updateUserAccountType(): Observable<string> {
         return this.http.put<string>(`${this.apiUrl}/accountTypeChange`, {},  { responseType: 'text' as 'json' });
     }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, Observable, of, throwError} from 'rxjs';
 import {environment} from "../../../../environments/environment";
 import {ApiResponse, Posts} from "../interface/Posts";
 import {Users} from "../interface/Users";
@@ -59,12 +59,10 @@ export class PostService {
         const formData: FormData = new FormData();
         formData.append('file', file, file.name);
         formData.append('caption', caption);
-
         return this.http.post<any>(`${this.apiUrl}/post`, formData).pipe(
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = 'An unknown error occurred!';
                 if (error.error instanceof ErrorEvent) {
-                    // Client-side error
                     errorMessage = `Error: ${error.error.message}`;
                 } else {
                     // Server-side error
@@ -87,9 +85,37 @@ export class PostService {
         return this.http.put<Posts>(`${this.apiUrl}/edit/${postId}`, formData);
     }
 
-
     deletePost(postId: number): Observable<ApiResponse> {
         return this.http.delete<ApiResponse>(`${this.apiUrl}/${postId}`);
+    }
+
+    commentOnPost(postId: number, comment: string): Observable<Posts> {
+        const url = `${this.apiUrl}/${postId}/comments`;
+        const body = new URLSearchParams();
+        body.set('comment', comment);
+
+        return this.http.post<Posts>(url, body.toString(), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            .pipe(
+                catchError(this.handleError<Posts>('commentOnPost'))
+            );
+    }
+
+    replyToComment(commentId: number, reply: string): Observable<Comment> {
+        const url = `${this.apiUrl}/comments/${commentId}/replies`;
+        const body = new URLSearchParams();
+        body.set('reply', reply);
+
+        return this.http.post<Comment>(url, body.toString(), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            .pipe(
+                catchError(this.handleError<Comment>('replyToComment'))
+            );
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(`${operation} failed: ${error.message}`);
+            return of(result as T);
+        };
     }
 }
 export interface Page<T> {

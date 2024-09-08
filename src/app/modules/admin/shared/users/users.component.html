@@ -13,7 +13,6 @@
     </div>
 
     <mat-table [dataSource]="dataSource" matSort *ngIf="dataSource.data.length > 0">
-
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header> ID</mat-header-cell>
@@ -42,22 +41,23 @@
         <ng-container matColumnDef="blocked">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
             <mat-cell *matCellDef="let row">
+<!--                <mat-slide-toggle-->
+<!--                    [checked]="!row.is_blocked_by_admin"-->
+<!--                    (change)="onToggleChange(row, $event.checked)">-->
+<!--                    {{ row.is_blocked_by_admin ? 'Enable' : 'Disable' }}-->
+<!--                </mat-slide-toggle>-->
                 <mat-slide-toggle
-                    [checked]="!row.is_blocked_by_admin"
+                    [checked]="!row.isBlockedByAdmin"
                     (change)="onToggleChange(row, $event.checked)">
-                    {{ row.is_blocked_by_admin ? 'Enable' : 'Disable' }}
+                    {{ row.isBlockedByAdmin ? 'Enable' : 'Disable' }}
                 </mat-slide-toggle>
+
             </mat-cell>
-
-
-
         </ng-container>
-
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
             <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
-
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

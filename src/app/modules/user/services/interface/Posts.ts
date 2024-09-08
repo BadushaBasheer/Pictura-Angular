@@ -33,6 +33,7 @@ export interface Comment{
     userId: number;
     username: string;
     text: string;
+    name: string;
     parentCommentId: number | null;
     replies: Comment[];
     createdAt: string;
